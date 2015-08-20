@@ -1,0 +1,9 @@
+﻿/////////NO LONGER NEEDED
+update-database -ConfigurationTypeName BusinessTracker.Data.DataContexts.CoreMigrations.Configuration
+
+/////////OLD NOT NEEDED
+update-database -ConfigurationTypeName BusinessTracker.Data.DataContexts.IdentityMigrations.Configuration
+
+update-database
+
+add-migration MyMigration

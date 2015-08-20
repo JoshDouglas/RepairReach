@@ -1,0 +1,123 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<RepairReach.Core.Model.Job>
+
+@{
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Jobs";
+    }
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#JobStatusId").change(function (e) {
+            //var isClosed = $('#ShowClosedJobs').is(':checked');
+            var status = $(this).find(':selected').text();
+            window.location = "/Job/Index?status=" + status;
+        });
+
+        //$("#ShowClosedJobs").change(function (e) {
+        //    var isClosed = $(this).is(':checked');
+        //    var status = $('#JobStatusId').find(':selected').text();
+        //    window.location = "/Job/Index?status=" + status + "&isClosed=" + isClosed;
+        //});
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-wrench"></i>
+                    @Model.Count() @ViewBag.Title 
+                    @if (@ViewBag.Title != "Jobs")
+                    {
+                        <text>
+                        Jobs
+                        </text>
+                    }
+                </h3>
+                <div class="actions">@*<div class="check-line"><input type="checkbox" id="ShowClosedJobs" class='icheck-me' data-skin="minimal" @if (@ViewBag.IsClosed == true) { <text>checked</text>}><label class='inline' for="ShowClosedJobs" style="color: white">Show Closed</label></div>*@ @Html.DropDownList("JobStatusId", string.Empty) </div>
+            </div>
+            <div class="box-content">
+                <p>
+                    <a href="@Url.Action("Create")"><button class="btn"><i class="icon-plus"></i> New Job</button></a>
+                </p>
+                @*table start*@
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobNumber)
+                        </th>
+                        <th>
+                            Customer
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Sales Rep
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Contact
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ContactPhone1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GrandTotal)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id=item.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobCategory.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobStatus.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalesRepresentative.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullContact)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContactPhone1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GrandTotal)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+                @*table end*@
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+﻿@model RepairReach.Core.Model.Service
+
+@{
+    ViewBag.Title = "Report Menu";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<h2><i class="icon-bar-chart"></i> Reports</h2>
+
+@*Estimates*@
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            Estimates
+        </h3>
+        <div class="actions">
+            <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="unstyled">
+            <li>@Html.ActionLink("Non-Authorized Jobs", "NonAuthorizedJobs", "EstimateReport")</li>
+        </ul>
+    </div>
+</div>
+@*Estimates End*@
+@*Work In Progress*@
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            Work In Progress
+        </h3>
+        <div class="actions">
+            <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="unstyled">
+            <li>Work In Progress</li>
+            <li>Work Scheduled</li>
+            <li>Authorized Not Scheduled</li>
+        </ul>
+    </div>
+</div>
+@*Work In Progress End*@
+@*Labor*@
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            Labor
+        </h3>
+        <div class="actions">
+            <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="unstyled">
+            <li>Employee Time Worksheet</li>
+            <li>Labor Time Summary</li>
+            <li>Labor Planning Worksheet</li>
+            <li>Labor Efficiency</li>
+        </ul>
+    </div>
+</div>
+@*Labor End*@
+@*Accounting*@
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            Accounting
+        </h3>
+        <div class="actions">
+            <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="unstyled">
+            <li>Completed Sales</li>
+            <li>Completed Sales Costs</li>
+            <li>Payments</li>
+            <li>Sales Tax Collected</li>
+        </ul>
+    </div>
+</div>
+@*Accounting End*@
+@*Vendors*@
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            Vendors
+        </h3>
+        <div class="actions">
+            <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+        </div>
+    </div>
+    <div class="box-content">
+        <ul class="unstyled">
+            <li>Vendor Listing</li>
+        </ul>
+    </div>
+</div>
+@*Vendors End*@

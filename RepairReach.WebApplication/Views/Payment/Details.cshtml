@@ -1,0 +1,58 @@
+﻿@model RepairReach.Core.Model.Payment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Payment</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.Address1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.Address1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnteredBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnteredBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

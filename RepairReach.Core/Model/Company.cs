@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RepairReach.Core.Model
+{
+    public class Company
+    {
+        public int CompanyId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Website { get; set; }
+
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Fax { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string Zipcode { get; set; }
+
+        //public byte Logo { get; set; } //Store relative path of file system in future
+
+        public string LogoPath { get; set; }
+
+        public string TimeZoneInfo { get; set; }
+    }
+}

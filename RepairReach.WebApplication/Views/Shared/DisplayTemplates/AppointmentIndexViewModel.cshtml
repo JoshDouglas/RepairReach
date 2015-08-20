@@ -1,0 +1,24 @@
+﻿@model RepairReach.WebApplication.ViewModels.AppointmentIndexViewModel
+
+@{
+    var startTime = TimeZoneInfo.ConvertTimeFromUtc(Model.StartTime, ViewBag.TimeZoneInfo);
+    var endTime = TimeZoneInfo.ConvertTimeFromUtc(Model.EndTime, ViewBag.TimeZoneInfo);
+}
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "Appointment", new { id=Model.AppointmentId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @startTime
+    </td>
+    <td>
+        @endTime
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.TechnicianDisplayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Note)
+    </td>
+</tr>

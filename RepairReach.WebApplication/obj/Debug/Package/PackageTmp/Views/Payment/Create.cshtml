@@ -1,0 +1,43 @@
+﻿@model RepairReach.WebApplication.ViewModels.PaymentCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-credit-card"></i>
+                    Create Payment
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        
+                        @Html.EditorFor(model => Model)
+                        
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.JobId }, null)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

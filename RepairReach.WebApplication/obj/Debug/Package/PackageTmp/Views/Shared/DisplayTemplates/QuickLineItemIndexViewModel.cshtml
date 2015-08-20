@@ -1,0 +1,10 @@
+﻿@model RepairReach.WebApplication.ViewModels.QuickLineItemIndexViewModel
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "QuickLineItem", new { id=Model.QuickLineItemId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => modelItem.Description)
+    </td>
+</tr>

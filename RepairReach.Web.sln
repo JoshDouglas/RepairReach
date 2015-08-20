@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.WebApplication", "RepairReach.WebApplication\RepairReach.WebApplication.csproj", "{7A268DC4-06EA-41AD-BF2D-A113DC1437A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.WebAPI", "RepairReach.WebAPI\RepairReach.WebAPI.csproj", "{352AD55E-E757-48DF-85DD-EA13B9ECB713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.Data", "RepairReach.Data\RepairReach.Data.csproj", "{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.Core", "RepairReach.Core\RepairReach.Core.csproj", "{3D3813BE-E9B5-4D52-B9C9-5A6CBDC4161D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8478357E-6454-455B-9043-1A694B1EB339}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.Import", "RepairReach.Import\RepairReach.Import.csproj", "{ED591499-5899-4E66-8C0E-5D69E6AABD35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairReach.BlueFolderImport", "RepairReach.BlueFolderImport\RepairReach.BlueFolderImport.csproj", "{FD0AA544-7610-4B2D-89D5-F0975425E446}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A268DC4-06EA-41AD-BF2D-A113DC1437A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A268DC4-06EA-41AD-BF2D-A113DC1437A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A268DC4-06EA-41AD-BF2D-A113DC1437A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A268DC4-06EA-41AD-BF2D-A113DC1437A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352AD55E-E757-48DF-85DD-EA13B9ECB713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352AD55E-E757-48DF-85DD-EA13B9ECB713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352AD55E-E757-48DF-85DD-EA13B9ECB713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352AD55E-E757-48DF-85DD-EA13B9ECB713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3813BE-E9B5-4D52-B9C9-5A6CBDC4161D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3813BE-E9B5-4D52-B9C9-5A6CBDC4161D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3813BE-E9B5-4D52-B9C9-5A6CBDC4161D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3813BE-E9B5-4D52-B9C9-5A6CBDC4161D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED591499-5899-4E66-8C0E-5D69E6AABD35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED591499-5899-4E66-8C0E-5D69E6AABD35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED591499-5899-4E66-8C0E-5D69E6AABD35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED591499-5899-4E66-8C0E-5D69E6AABD35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD0AA544-7610-4B2D-89D5-F0975425E446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD0AA544-7610-4B2D-89D5-F0975425E446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD0AA544-7610-4B2D-89D5-F0975425E446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD0AA544-7610-4B2D-89D5-F0975425E446}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+﻿@model RepairReach.WebApplication.ViewModels.PaymentMethodIndexViewModel
+    
+<tr>
+    @Html.HiddenFor(modelItem => Model.PaymentMethodId)
+    <td>
+        @Html.EditorFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.EditorFor(modelItem => Model.SequenceNumber)
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", "PaymentMethod", new { id = Model.PaymentMethodId }, null)
+    </td>
+</tr>

@@ -1,0 +1,8 @@
+﻿@using (Html.BeginForm("Results", "Search", null, FormMethod.Get, new { @class = "search-form"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="search-pane">
+		@Html.TextBox("SearchTerm", null, new { @placeholder = "Search..." })
+		<button type="submit"><i class="icon-search"></i></button>
+	</div>                     
+}

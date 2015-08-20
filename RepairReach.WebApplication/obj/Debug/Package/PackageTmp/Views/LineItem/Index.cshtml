@@ -1,0 +1,89 @@
+﻿@model IEnumerable<RepairReach.Core.Model.LineItem>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { jobId = @ViewBag.JobId }) | @Html.ActionLink("Back to Job", "Edit", "Job", new { id = @ViewBag.JobId }, null)
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItemNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceCost)
+        </th>
+        <th>
+            Service
+        </th>
+        <th>
+            Tax
+        </th>
+        <th>
+            Tech
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Edit", new { id=item.LineItemId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineItemNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxRate.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Technician.DisplayName)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,169 @@
+﻿@model RepairReach.WebApplication.ViewModels.LineItemEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script>
+    jQuery(document).ready(function () {
+        $("#ServiceId").change(function () {
+            var id = $('#ServiceId').val();
+            var ServiceUrl = "/Service/GetServiceById?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#ServiceName').val(result.Name);
+                    $('#ServiceAmount').val(result.Amount);
+                    $('#ServiceCost').val(result.Cost);
+                }
+            });
+        });
+
+        $("#PartId").change(function () {
+            var id = $('#PartId').val();
+            var ServiceUrl = "/Part/GetPartById?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#PartName').val(result.Name);
+                    $('#PartAmount').val(result.Amount);
+                    $('#PartCost').val(result.Cost);
+                    $('#PartNumber').val(result.PartNumber);
+                }
+            });
+        });
+
+        $("#QuickLineItemId").change(function () {
+            var id = $('#QuickLineItemId').val();
+
+            if (id.length > 0) {
+                PopulateQuickLine(id);
+            } else {
+                $('#Description').val('');
+
+                $('#PartName').val('');
+                $('#PartNumber').val('');
+                $('#PartQty').val('');
+                $('#PartEach').val('');
+                $('#PartCost').val('');
+
+                $('#ServiceName').val('');
+                $('#ServiceQty').val('');
+                $('#ServiceEach').val('');
+                $('#ServiceCost').val('');
+            }
+        });
+
+        function PopulateQuickLine(id) {
+            var ServiceUrl = "/QuickLineItem/GetJsonAsync?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#Description').val(result.Description);
+
+                    $('#PartName').val(result.PartName);
+                    $('#PartNumber').val(result.PartNumber);
+                    $('#PartQty').val(result.PartQty);
+                    $('#PartEach').val(result.PartEach);
+                    $('#PartCost').val(result.PartCost);
+
+                    $('#ServiceName').val(result.ServiceName);
+                    $('#ServiceQty').val(result.ServiceQty);
+                    $('#ServiceEach').val(result.ServiceEach);
+                    $('#ServiceCost').val(result.ServiceCost);
+                }
+            });
+        }
+
+        $("#QuickLineSearch").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/QuickLineItem/GetTermJsonAsync",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Description, value: item.QuickLineItemId };
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                this.value = "";
+                PopulateQuickLine(ui.item.value);
+                return false;
+            }
+        });
+
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-reorder"></i>
+                    Edit Line Item
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.JobId)
+                    @Html.ValidationSummary(true)
+                    
+                    <div class="form-horizontal">
+                        
+                        @Html.EditorFor(model => Model)
+                        
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.JobId }, null) | @Html.ActionLink("Delete", "Delete", new { id = Model.LineItemId })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

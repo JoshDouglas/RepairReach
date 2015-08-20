@@ -1,0 +1,94 @@
+﻿@using System.Linq;
+@using RepairReach.Core.Model
+@using RepairReach.Data;
+
+@{
+    var context = new RepairReachContext();
+    var companyName = "Default Company";
+    var logoUrl = string.Empty;
+    var singleOrDefault = context.Companies.SingleOrDefault();
+    if (singleOrDefault != null)
+    {
+        companyName = singleOrDefault.Name;
+        logoUrl = singleOrDefault.LogoPath;
+    }
+}
+
+@*@if (string.IsNullOrEmpty(logoUrl) == false)
+{
+    <style>
+        #navigation #brand {
+            background: url('@Url.Content(logoUrl)') no-repeat;
+        }
+    </style>
+}*@
+
+<div id="navigation">
+		<div class="container-fluid">
+			<a href="@Url.Action("Index", "Home")" id="brand">@companyName</a>
+			<div class="user">
+			    <ul class="icon-nav">
+                    <li class="dropdown">
+                        <a href="#" class='dropdown-toggle' data-toggle="dropdown"><i class="icon-time"></i></a>
+                        <ul class="dropdown-menu pull-right theme-settings">
+                            <li>
+                                @Html.ActionLink("TimeClock", "Index", "TimeClockEntry")
+                            </li>
+                            @if (User.Identity.Name == "DemoAdmin")
+                            {
+                                <li>
+                                    @Html.ActionLink("Manage TimeClock", "ManagerIndex", "TimeClockEntry")
+                                </li>
+                            }
+                        </ul>
+                    </li>
+			        <li class="dropdown">
+			            <a href="#" class='dropdown-toggle' data-toggle="dropdown"><i class="icon-wrench"></i></a>
+			            <ul class="dropdown-menu pull-right theme-settings">
+                            <li>
+                                @Html.ActionLink("Quick Lines", "Index", "QuickLineItem")
+                            </li>
+                            <li>
+			                    @Html.ActionLink("Vendors", "Index", "Vendor")
+			                </li>
+			                <li>
+			                    @Html.ActionLink("Team", "Index", "Team")
+			                </li>
+			                <li>
+			                    @Html.ActionLink("Statuses", "Index", "JobStatus")
+			                </li>
+			                <li>
+			                    @Html.ActionLink("Categories", "Index", "JobCategory")
+			                </li>
+                            <li>
+                                @Html.ActionLink("Marketing", "Index", "HowDidYouFindUs")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Payment Methods", "Index", "PaymentMethod")
+                            </li>
+			                <li>
+			                    @Html.ActionLink("Tax Rates", "Index", "TaxRate")
+			                </li>
+			                <li>
+			                    @Html.ActionLink("Company", "Index", "Company")
+			                </li>
+			            </ul>
+			        </li>
+			    </ul>
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name</a>
+					<ul class="dropdown-menu pull-right">
+@*					    <li>*@
+					            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
+}
+@*					        <a href="more-login.html">Sign out</a>
+					    </li>*@
+					</ul>
+				</div>
+			</div>
+		</div>
+	<ul class="mobile-nav"></ul>
+</div>

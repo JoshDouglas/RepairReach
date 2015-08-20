@@ -1,0 +1,255 @@
+﻿@model RepairReach.Core.Model.Customer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.CustomerId)
+
+        @Html.ActionLink("New Appliance", "Create", "Appliance", new {customerId = Model.CustomerId}, null)
+        <br />
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Designation, "Designation", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Designation")
+                @Html.ValidationMessageFor(model => model.Designation)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CompanyName)
+                @Html.ValidationMessageFor(model => model.CompanyName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Phone1, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.Phone1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Phone2, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.Phone2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fax, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fax)
+                @Html.ValidationMessageFor(model => model.Fax)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address1)
+                @Html.ValidationMessageFor(model => model.Address1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address2)
+                @Html.ValidationMessageFor(model => model.Address2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State)
+                @Html.ValidationMessageFor(model => model.State)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zipcode)
+                @Html.ValidationMessageFor(model => model.Zipcode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrefersTextMessaging, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrefersTextMessaging)
+                @Html.ValidationMessageFor(model => model.PrefersTextMessaging)
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Delete", "Delete", new {id = Model.CustomerId})
+</div>
+
+<br />
+
+@*company jobs*@
+@if (Model.Designation == RepairReach.Core.Enum.CustomerDesignationEnum.Company)
+{
+    <div class="box-title">
+	    <h3>
+		    <i class="icon-home"></i>
+		    Jobs by Location
+	    </h3>
+    </div>
+
+    @Html.ActionLink("Create Job", "Create", "Job", new { customerId = Model.CustomerId}, null)
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                Job Number
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Tenant
+            </th>
+            <th>
+                Phone
+            </th>
+        </tr>
+
+    @foreach (var item in Model.Jobs.OrderBy(j => j.Address1)) {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Job", new { id=item.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullContact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactPhone1)
+            </td>
+        </tr>
+    }
+    </table>
+}
+else if (Model.Designation == RepairReach.Core.Enum.CustomerDesignationEnum.Individual)
+{
+    <div class="box-title">
+	    <h3>
+		    <i class="icon-qrcode"></i>
+		    Previous Jobs
+	    </h3>
+    </div>
+
+    @Html.ActionLink("Create Job", "Create", "Job", new { customerId = Model.CustomerId}, null)
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                Job Number
+            </th>
+            <th>
+                Scheduled
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+
+    @foreach (var item in Model.Jobs.OrderBy(a => a.JobNumber)) {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Job", new { id=item.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobScheduled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        </tr>
+    }
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

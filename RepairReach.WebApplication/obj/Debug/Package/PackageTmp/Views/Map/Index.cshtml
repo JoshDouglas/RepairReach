@@ -1,0 +1,194 @@
+﻿@model RepairReach.WebApplication.ViewModels.MapViewModel
+
+@{
+    ViewBag.Title = "Map";
+    //Model.ScheduledFrom = DateTime.Now.Date;
+    //Model.ScheduledTo = DateTime.Now.Date.AddDays(7);
+}
+<!--
+    var latlng = [
+    new google.maps.LatLng(1.23, 4.56),
+    new google.maps.LatLng(7.89, 1.01),
+    // ...
+];
+var latlngbounds = new google.maps.LatLngBounds();
+for (var i = 0; i < latlng.length; i++) {
+    latlngbounds.extend(latlng[i]);
+}
+map.fitBounds(latlngbounds);
+-->
+@section styles
+{
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+}
+@section scripts {
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?sensor=false">
+
+
+    
+    </script>
+
+    <!--Foreach item in the view, create new marker and content string for information-->
+    <script type="text/javascript">
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var pos = new google.maps.LatLng(0, 0);
+
+    function initialize() {
+
+
+        //Remove center
+
+        var mapOptions = {
+            zoom: 4,
+            center: pos
+        };
+
+        var map = new google.maps.Map(document.getElementById('map1'), mapOptions);
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(initialLocation);
+            });
+        }
+
+        @{
+                string markerName = "marker";
+                string infoWindow = "infoWindow";
+                string contentString = "contentString";
+
+                int markerCounter = 1;
+            }
+        @foreach (var appointment in Model.Appointments)
+            {
+                DateTime startTime = TimeZoneInfo.ConvertTimeFromUtc(appointment.StartTime, ViewBag.TimeZoneInfo);
+                DateTime endTime = TimeZoneInfo.ConvertTimeFromUtc(appointment.EndTime, ViewBag.TimeZoneInfo);
+            
+                <text>
+        var @contentString@markerCounter.ToString() = '<div id="content">' +
+    '<div id="siteNotice">' +
+    '</div>' +
+    '<h1 id="firstHeading" class="firstHeading">@appointment.Job.JobNumber</h1>' +
+    '<div id="bodyContent">' +
+    '<p>@appointment.Job.JobScheduledDisplay</p>' +
+    '<p>@startTime.ToShortDateString()</p>' +
+    '<p>@appointment.Job.FullAddress</p>' +
+    '<p>@appointment.Job.FullContact</p>' +
+    '<p><a href="/Job/Edit?id=@appointment.JobId">' +
+    'EDIT</a></p>'
+        '</div>' +
+        '</div>';
+
+        var @infoWindow@markerCounter.ToString() = new google.maps.InfoWindow({
+            content: @contentString@markerCounter.ToString()
+            });
+
+
+
+
+
+        var @markerName@markerCounter.ToString() = new google.maps.Marker({
+            position: new google.maps.LatLng('@appointment.Job.Location.lat', '@appointment.Job.Location.lng'),
+            map: map,
+            title: 'Job #@appointment.Job.JobNumber \n @startTime.ToShortDateString() \n @startTime.ToShortTimeString() - @endTime.ToShortTimeString()'
+        });
+
+
+        google.maps.event.addListener(@markerName@markerCounter.ToString(), 'click', function() {
+            @infoWindow@markerCounter.ToString() .open(map, @markerName@markerCounter.ToString());
+        });
+
+        bounds.extend(@markerName@markerCounter.ToString() .position);
+
+
+        @{markerCounter++;}
+
+
+        </text>
+
+            }
+
+        map.fitBounds(bounds);
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ScheduledFrom').change(function (e) {
+            this.form.submit();
+        });
+
+        $('#ScheduledTo').change(function (e) {
+            this.form.submit();
+        });
+    });
+</script>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-map-marker"></i>
+                        Map
+                    </h3>
+                </div>
+                <div class="box-content">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        
+                        @*josh start*@
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                From
+                                <input class="input-medium datepick" data-val="true" data-val-date="The field Date must be a date." data-val-required="The Date field is required." id="ScheduledFrom" name="ScheduledFrom" type="text" value="@Model.ScheduledFrom.ToShortDateString()" />
+                                @Html.ValidationMessageFor(model => model.ScheduledFrom)
+                                To
+                                <input class="input-medium datepick" data-val="true" data-val-date="The field Date must be a date." data-val-required="The Date field is required." id="ScheduledTo" name="ScheduledTo" type="text" value="@Model.ScheduledTo.ToShortDateString()" />
+                                @Html.ValidationMessageFor(model => model.ScheduledTo)
+
+                                @*<input type="submit" value="Submit" class="btn btn-primary" />*@
+                            </div>
+                        </div>
+
+                        @*@Html.LabelFor(model => model.ScheduledFrom)
+                        <input class="input-medium datepick" data-val="true" data-val-date="The field Date must be a date." data-val-required="The Date field is required." id="ScheduledFrom" name="ScheduledFrom" type="text" value="@Model.ScheduledFrom.ToShortDateString()" />
+                        //@Html.TextBoxFor(model => model.ScheduledFrom.Date, new {@class = "input-medium datepick"})
+                        @Html.ValidationMessageFor(model => model.ScheduledFrom)
+                        @Html.LabelFor(model => model.ScheduledTo)
+                        <input class="input-medium datepick" data-val="true" data-val-date="The field Date must be a date." data-val-required="The Date field is required." id="ScheduledTo" name="ScheduledTo" type="text" value="@Model.ScheduledTo.ToShortDateString()" />
+                        //@Html.TextBoxFor(model => model.ScheduledTo, new { @class = "input-medium datepick" })
+                        @Html.ValidationMessageFor(model => model.ScheduledTo)*@
+
+
+                        @*<div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        </div>*@
+                        <div id="map1"></div>
+
+                    }
+                </div>
+                    
+                
+            </div>
+        </div>
+    </div>
+
+

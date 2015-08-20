@@ -1,0 +1,453 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobEditViewModel
+
+@{
+    ViewBag.Title = "Job - " + Model.CustomerDisplayName;
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#JobStatusId").change(function (e) {
+            var status = $(this).find(':selected').text();
+            var balanceDue = $('#BalanceDue').val();
+            if (status == "Closed" && balanceDue != 0) {
+                //disable save button
+                $('input[type="submit"]').prop('disabled', true);
+                //show error
+                $("#closed-balance-due-error").show();
+                //scroll to error div
+                $('html,body').animate({ scrollTop: $('#closed-balance-due-error').offset().top }, 'slow');
+            } else {
+                //enable button
+                $('input[type="submit"]').prop('disabled', false);
+                //hide error
+                $("#closed-balance-due-error").hide();
+            }
+        });
+
+        $('#JobQuickStatusId').change(function (e) {
+            var status = $(this).find(':selected').text();
+            var balanceDue = $('#BalanceDue').val();
+            if (status == "Closed" && balanceDue != 0) {
+                //disable save button
+                $('input[type="submit"]').prop('disabled', true);
+                //show error
+                $("#closed-balance-due-error").show();
+                //scroll to error div
+                $('html,body').animate({ scrollTop: $('#closed-balance-due-error').offset().top }, 'slow');
+            } else {
+                this.form.submit();
+            }
+        });
+
+        $('#CantSendEmailButton').qtip({
+            content: 'You and the customer both need emails in order to send this off!',
+            show: 'mouseover',
+            hide: 'mouseout'
+        });
+    });
+</script>
+
+@*there is a wierd conflict between bootstrap and qtip, so this css is required for it to work*@
+<style>
+    .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+        cursor: pointer;
+        pointer-events: auto;
+    }
+</style>
+
+@*Tab box*@
+<div class="box box-bordered box-color">
+    <div class="box-title">
+        <h3><i class="icon-wrench"></i> Job - <a style="color: white;" href="@Url.Action("Edit", "Customer", new {id = @Model.CustomerId})">@Model.CustomerDisplayName</a></h3>
+        @using (Html.BeginForm("UpdateStatus", "Job", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.JobId)
+            <div class="actions"><div style="color: white;"><h3>Status</h3> &nbsp; @Html.DropDownList("JobQuickStatusId")</div></div>
+        }
+    </div>
+    <div class="box-content nopadding">
+        <ul class="tabs tabs-inline tabs-top">
+            <li class="active">
+                <a href="#firstTab" data-toggle="tab"><i class="icon-wrench"></i> Job Info</a>
+            </li>
+            <li class="">
+                <a href="#secondTab" data-toggle="tab"><i class="icon-reorder"></i> Line Items</a>
+            </li>
+            <li class="">
+                <a href="#thirdTab" data-toggle="tab"><i class="icon-credit-card"></i> Payments</a>
+            </li>
+            <li class="">
+                <a href="#fourthTab" data-toggle="tab"><i class="icon-bar-chart"></i> Forms</a>
+            </li>
+        </ul>
+        <div class="tab-content padding tab-content-inline tab-content-bottom">
+            <div class="tab-pane active" id="firstTab">
+                <div class="row-fluid">
+                    @*Appliances Begin*@
+                    <div class="span12">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="glyphicon-nails"></i>
+                                    Appliances
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "Appliance", new {jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Appliance</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appliances.First().Type)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appliances.First().Make)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appliances.First().ModelNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appliances.First().SerialNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appliances.First().ProblemDescription)
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.Appliances)
+                                    {
+                                        @Html.DisplayFor(model => item)
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Appliances End*@
+                </div>
+                
+                <div class="row-fluid">
+                    @*Appointments Begin*@
+                    <div class="span6">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-calendar"></i>
+                                    Appointments
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "Appointment", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Appointment</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appointments.First().StartTime)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appointments.First().EndTime)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appointments.First().TechnicianDisplayName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.Appointments.First().Note)
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.Appointments)
+                                    {
+                                        @Html.DisplayFor(model => item)
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Appointments End*@
+                    <div class="span6">
+                        @*Notes Begin*@
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-edit"></i>
+                                    Notes
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "JobNote", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Note</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.JobNotes.First().Note)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.JobNotes.First().CreatedBy)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => Model.JobNotes.First().CreatedDate)
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.JobNotes)
+                                    {
+                                        @Html.DisplayFor(model => item)
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                        @*Notes End*@
+                    </div>
+                </div>
+
+                @*Job Info Begin*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true)
+                            
+                            @Html.EditorFor(model => Model)
+
+                            <br />
+                        </div>
+                    }
+                    @*Job Info End*@
+                
+            </div>
+            <div class="tab-pane" id="secondTab">
+                @*Line Item Begin*@
+                <p>
+                    <a href="@Url.Action("Create", "LineItem", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Line Item</button></a>
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().LineItemNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().TechnicianDisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().PartName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().PartAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().PartCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().ServiceName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().ServiceAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().ServiceCost)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().TaxAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.LineItems.First().TotalAmount)
+                        </th>
+                    </tr>
+                    
+                    @{decimal totalAmount = 0;}
+
+                    @foreach (var item in Model.LineItems)
+                    {
+                        @Html.DisplayFor(model => item)
+                        
+                        { totalAmount += item.TotalAmount;}
+                    }
+                    @*line item total row*@
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>
+                            <b>@(Math.Round(totalAmount, 2, MidpointRounding.ToEven))</b>
+                        </td>
+                    </tr>
+                </table>
+                @*Line Item End*@
+            </div>
+            <div class="tab-pane" id="thirdTab">
+                @*Payments Begin*@
+                <p>
+                    <a href="@Url.Action("Create", "Payment", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Payment</button></a>
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.Payments.First().PaymentMethod)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.Payments.First().PaymentAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.Payments.First().Note)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.Payments.First().DatePaid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => Model.Payments.First().EnteredBy)
+                        </th>
+                    </tr>
+                    
+                    @{ decimal totalPaymentsAmount = 0;}
+
+                    @foreach (var item in Model.Payments)
+                    {
+                        @Html.DisplayFor(model => item)
+                        
+                        { totalPaymentsAmount += item.PaymentAmount;}
+                    }
+                    @*payment totals row*@
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td><b>@(totalPaymentsAmount)</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                @*Payments End*@
+            </div>
+            <div class="tab-pane" id="fourthTab">
+                @*Forms Begin*@
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            Form
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+                    
+                    @*<tr>
+                        <td>
+                            <a href="@Url.Action("Estimate", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EstimatePdf", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Estimate 
+                        </td>
+                        <td>
+                            Estimate report for pre-authorized repair.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("RepairOrder", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("RepairOrderPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Repair Order
+                        </td>
+                        <td>
+                            Current repair order.
+                        </td>
+                    </tr>*@
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Invoice", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                            <a href="@Url.Action("InvoicePdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                            @if (ViewBag.CanSendEmails == true)
+                            {
+                                <a href="@Url.Action("InvoiceEmail", "Job", new { jobId = Model.JobId })"><button class="btn"><i class="glyphicon-message_out"> Email</i></button></a>
+                            }
+                            else
+                            {
+                                <button id="CantSendEmailButton" class="btn disabled"><i class="glyphicon-message_out"> Email</i></button>
+                            }
+                        </td>
+                        <td>
+                            Invoice
+                        </td>
+                        <td>
+                            Customer invoice.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("PaymentReceipt", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                            <a href="@Url.Action("PaymentReceiptPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Payment Receipt
+                        </td>
+                        <td>
+                            Receipt for payments.
+                        </td>
+                    </tr>
+                    
+                    @*<tr>
+                        <td>
+                            <a href="@Url.Action("RepairAuthorization", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("RepairAuthorizationPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Repair Authorization
+                        </td>
+                        <td>
+                            Customer authorization for repairs.
+                        </td>
+                    </tr>*@
+
+                </table>
+                @*Forms End*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Delete", "Delete", new { id = Model.JobId })
+</div>

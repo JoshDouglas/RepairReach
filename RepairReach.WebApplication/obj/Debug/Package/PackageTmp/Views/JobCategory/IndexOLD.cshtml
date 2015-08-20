@@ -1,0 +1,64 @@
+﻿@model IList<RepairReach.Core.Model.JobCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-flag"></i>
+                    Categories
+                </h3>
+            </div>
+            <div class="box-content">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().SequenceNumber)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @using (Html.BeginForm("Update", "JobCategory", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div style="color:red">@Html.ValidationMessage("SequencesNotDistinct")</div>
+
+                        for (var i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                @Html.HiddenFor(modelItem => Model[i].JobCategoryId)
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].Description)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].SequenceNumber)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = Model[i].JobCategoryId })
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>
+                                <input id="JobCategorySave" type="submit" value="Save" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

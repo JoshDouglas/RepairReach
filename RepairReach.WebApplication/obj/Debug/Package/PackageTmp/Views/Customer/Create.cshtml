@@ -1,0 +1,73 @@
+﻿@model RepairReach.WebApplication.ViewModels.CustomerCreateViewModel
+
+@{
+    ViewBag.Title = "Customer - Create";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        function UpdateDisplayForDesignation(designation) {
+            if (designation == "Individual") {
+                $('#CompanyNameFormGroup').hide();
+                $('#FirstNameLabel').text('First Name');
+                $('#LastNameLabel').text('Last Name');
+                $('#CompanyName').val('');
+            } else {
+                $('#CompanyNameFormGroup').show();
+                $('#FirstNameLabel').text('Contact First Name');
+                $('#LastNameLabel').text('Contact Last Name');
+            }
+        }
+
+        //drop-down change
+        $("#Designation").change(function (e) {
+            var designation = $(this).find(':selected').text();
+            UpdateDisplayForDesignation(designation);
+        });
+
+        //setup on load
+        var designation = $(this).find(':selected').text();
+        UpdateDisplayForDesignation(designation);
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-user"></i>
+                    Create Customer
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { @class = "form-vertical" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        @Html.EditorFor(model => Model)
+
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,17 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobEditActivityEventViewModel
+
+@{
+    var eventTime = TimeZoneInfo.ConvertTimeFromUtc(Model.EventTime, ViewBag.TimeZoneInfo);
+}
+
+<tr>
+    <td>
+        @eventTime
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.CausedBy)
+    </td>
+</tr>

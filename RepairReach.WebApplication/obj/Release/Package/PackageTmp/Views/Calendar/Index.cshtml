@@ -1,0 +1,117 @@
+﻿@model IList<RepairReach.Core.Model.Staff>
+
+@{
+    ViewBag.Title = "Calendar";
+}
+
+<script type='text/javascript'>
+
+            $(document).ready(function() {
+
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                var calendar = $('.calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'resourceDay agendaWeek month'
+                    },
+                    allDaySlot: false,
+                    minTime: 6,
+                    maxTime: 23,
+                    titleFormat: 'ddd, MMM dd, yyyy',
+                    defaultView: 'resourceDay',
+                    selectable: false,
+                    selectHelper: true,
+                    slotEventOverlap: false,
+                    eventResize: function (event, dayDelta, minuteDelta) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Appointment/UpdateCalendarAppointment/',
+                            data: {appointmentId: event.id, start: event.start.toISOString(), end: event.end.toISOString()},
+                            error: function (xhr, err) {
+                                //alert('EVENT FAIL');
+                            },
+                            success: function (result, status) {
+                                //alert('EVENT SUCCESS');
+                            }
+                        });
+                    },
+                    eventDrop: function (event, dayDelta, minuteDelta, allDay) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Appointment/UpdateCalendarAppointment/',
+                            data: { appointmentId: event.id, start: event.start.toISOString(), end: event.end.toISOString(), resourceId: event.resourceId },
+                            error: function (xhr, err) {
+                                //alert('EVENT FAIL');
+                            },
+                            success: function (result, status) {
+                                //alert('EVENT SUCCESS');
+                            }
+                        });
+
+                        if (event.end < date) {
+                            $('#date-warning-dialog').modal('show');
+                        }
+                    },
+                    editable: true,
+                    @*fuck jquery*@
+                    resources: [
+                        @for (int i = 0; i < @Model.Count(); i++)
+                        {
+                            <text>
+                            {
+                                name: '@(Model[i].DisplayName)',
+                                id: '@(Model[i].StaffId)'
+
+                            } 
+                            </text>
+                            if (i != Model.Count() - 1){ <text>,</text> }
+                        }
+                    ],
+                    events: '/Appointment/GetAppointmentEvents/'
+                });
+                $(".fc-button-effect").remove();
+                $(".fc-button-next .fc-button-content").html("<i class='icon-chevron-right'></i>");
+                $(".fc-button-prev .fc-button-content").html("<i class='icon-chevron-left'></i>");
+                $(".fc-button-today").addClass('fc-corner-left');
+                $(".fc-button-prev").addClass('fc-corner-left');
+
+                $(".fc-button-resourceDay").removeClass('fc-corner-left');
+                $(".fc-button-agendaWeek").removeClass('fc-corner-left');
+                $(".fc-button-resourceDay").addClass('fc-corner-right');
+                $(".fc-button-agendaWeek").addClass('fc-corner-right');
+            });
+</script>
+
+<div id="date-warning-dialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Warning" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Warning</h3>
+    </div>
+    <div class="modal-body">
+        <p>This appointment has been set for a time that has already occured.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal">Ok</button>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-calendar"></i>
+                    Calendar
+                </h3>
+            </div>
+            <div class="box-content">
+                <div class="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>

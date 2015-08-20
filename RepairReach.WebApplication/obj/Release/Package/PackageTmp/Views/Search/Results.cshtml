@@ -1,0 +1,207 @@
+﻿@model RepairReach.WebApplication.ViewModels.SearchViewModel
+
+@{
+    ViewBag.Title = "Results";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<h2>Search Results For: @Model.SearchTerm</h2>
+
+<h3>
+    <i class="icon-wrench"></i>
+	@Model.JobCount Jobs
+</h3>
+<hr />
+
+@if (Model.Jobs.Count() > 0)
+{ 
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().JobNumber)
+            </th>
+            <th>
+                Customer
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Sales Rep
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().Address1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().Address2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().Zipcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().ContactFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().ContactLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jobs.First().ContactPhone1)
+            </th>
+        </tr>
+
+    @foreach (var item in Model.Jobs)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Job", new { id = item.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCategory.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobStatus.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesRepresentative.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zipcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactPhone1)
+            </td>
+        </tr>
+    }
+    </table>
+}
+else
+{
+    <h4>No jobs found.</h4> 
+}
+
+<br />
+
+<h3>
+    <i class="icon-user"></i>
+	@Model.CustomerCount Customers
+</h3>
+<hr />
+
+@if (Model.Customers.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().DisplayName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().Phone1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().Address1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().Address2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers.First().Zipcode)
+            </th>
+        </tr>
+
+    @foreach (var item in Model.Customers)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Customer", new { id = item.CustomerId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zipcode)
+            </td>
+        </tr>
+    }
+
+    </table>
+}
+else
+{
+    <h4>No customers found.</h4> 
+}
+
+

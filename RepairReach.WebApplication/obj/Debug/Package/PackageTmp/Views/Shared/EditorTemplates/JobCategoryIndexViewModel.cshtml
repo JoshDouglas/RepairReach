@@ -1,0 +1,14 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobCategoryIndexViewModel
+    
+<tr>
+    @Html.HiddenFor(modelItem => Model.JobCategoryId)
+    <td>
+        @Html.EditorFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.EditorFor(modelItem => Model.SequenceNumber)
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", "JobCategory", new { id = Model.JobCategoryId }, null)
+    </td>
+</tr>

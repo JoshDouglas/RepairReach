@@ -1,0 +1,97 @@
+﻿@using System.Web.UI.WebControls
+@model RepairReach.Core.Model.Job
+
+@{
+    ViewBag.Title = "Repair Authorization";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-wrench"></i>
+                    Repair Authorization
+                </h3>
+            </div>
+            <div class="box-content">
+                <div class="invoice-info">
+                    <div class="invoice-name">
+                        @ViewBag.Company.Name
+                    </div>
+                    <div class="invoice-from">
+                        <span>From</span>
+                        <strong>@ViewBag.Company.Name</strong>
+                        <address>
+                            @ViewBag.Company.Address1 &nbsp; @if (ViewBag.Company.Address2 != null)
+                            { @ViewBag.Company.Address2;
+                            } <br />
+                            @ViewBag.Company.City, @ViewBag.Company.State @ViewBag.Company.Zipcode <br />
+                            <abbr title="Phone">Phone:</abbr> @ViewBag.Company.Phone <br />
+                            @if (ViewBag.Company.Fax != null)
+                            {<abbr title="Fax">Fax:</abbr> @ViewBag.Company.Fax }
+                        </address>
+                    </div>
+                    <div class="invoice-to">
+                        <span>To</span>
+                        <strong>@Model.Customer.DisplayName</strong>
+                        <address>
+                            @Model.Customer.Address1 &nbsp; @if (Model.Customer.Address2 != null)
+                            { @Model.Customer.Address2;
+                            } <br />
+                            @Model.Customer.City, @Model.Customer.State @Model.Customer.Zipcode <br />
+                            <abbr title="Phone">Phone:</abbr> @Model.Customer.Phone1 <br />
+                            @if (Model.Customer.Fax != null)
+                            { <abbr title="Fax">Fax:</abbr> @Model.Customer.Fax }
+                        </address>
+                    </div>
+                    <div class="invoice-infos">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>@DateTime.Today.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <th>Job #:</th>
+                                    <td>@Model.JobNumber</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-user"></i>
+                        CUSTOMER RIGHTS &amp; NOTICE TO CUSTOMER
+                    </h3>
+                </div>
+                <div class="box-content">
+                    This is a price estimate for repairs you have authorized.  The final price could change if there is a price increase in manufacturer’s parts prices or if during the repair additional or hidden damage is discovered.  Should additional damage be discovered, you will be contacted before we proceed with repairs.  All parts will be replaced as specified on the estimate unless a new part is installed at the same cost to you as the part type specified.  Parts prices are subject to list price on parts invoice.  You are entitled to request the return of replaced parts prior the repairs being performed.
+                    <br />
+                    <br />
+                    ________ I DO NOT WISH THE OLD PARTS TO BE RETURNED     ______ I REQUEST OLD PARTS RETURNED
+                </div>
+            </div>
+
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="icon-wrench"></i>
+                        SERVICE AUTHORIZATION
+                    </h3>
+                </div>
+                <div class="box-content">
+                    I authorize the above repairs to be done and @ViewBag.Company.Name employees and authorized vendors to operate my appliance for purposes of repair. I understand @ViewBag.Company.Name will not be responsible for mechanical failure or for loss or damage to appliances due to causes beyond their control.  I understand @ViewBag.Company.Name cannot assume responsibility for personal items left in appliances or defects in painted areas, caused by old repair work, fillers, and plastics, or customer’s own repairs.
+                    I agree that if any obligation for repairs, parts or other materials is not paid when due or if suit is brought against me relating to any repair hereto, I shall pay all reasonable costs of collection including attorney’s fees, court costs, interest and all other monies provided by law.
+                    <br />
+                    <br />
+                    SIGNATURE _____________________________________   DATE ________________   APPOINTMENT ___________________
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿@model RepairReach.WebApplication.ViewModels.CustomerEditViewModel
+
+@{
+    ViewBag.Title = "Customer - " + Model.DisplayName;
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        function UpdateDisplayForDesignation(designation) {
+            if (designation == "Individual") {
+                $('#CompanyNameFormGroup').hide();
+                $('#FirstNameLabel').text('First Name');
+                $('#LastNameLabel').text('Last Name');
+                $('#CompanyName').val('');
+            } else {
+                $('#CompanyNameFormGroup').show();
+                $('#FirstNameLabel').text('Contact First Name');
+                $('#LastNameLabel').text('Contact Last Name');
+            }
+        }
+
+        //drop-down change
+        $("#Designation").change(function (e) {
+            var designation = $(this).find(':selected').text();
+            UpdateDisplayForDesignation(designation);
+        });
+
+        //setup on load
+        var designation = $(this).find(':selected').text();
+        UpdateDisplayForDesignation(designation);
+    });
+</script>
+
+<div class="box box-bordered box-color">
+    <div class="box-title">
+        <h3><i class="icon-user"></i> Customer - @Model.DisplayName</h3>
+    </div>
+    <div class="box-content nopadding">
+        <ul class="tabs tabs-inline tabs-top">
+            <li class="active">
+                <a href="#firstTab" data-toggle="tab"><i class="icon-user"></i> Customer Info</a>
+            </li>
+            <li class="">
+                <a href="#secondTab" data-toggle="tab"><i class="icon-wrench"></i> Jobs</a>
+            </li>
+        </ul>
+        <div class="tab-content padding tab-content-inline tab-content-bottom">
+            <div class="tab-pane active" id="firstTab">
+                @*Customer Info Begin*@
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        
+                        @Html.EditorFor(model => Model)
+
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*Customer Info End*@
+            </div>
+            <div class="tab-pane" id="secondTab">
+                @*Job History Begin*@
+                @Html.ActionLink("Create Job", "Create", "Job", new { customerId = Model.CustomerId }, null)
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().JobNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().CustomerDisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().CategoryDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().StatusDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().SalesRepDisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().FullAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().FullContactName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().ContactPhone1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => Model.Jobs.First().TotalAmount)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.Jobs.OrderBy(j => j.JobId))
+                    {
+                        @Html.DisplayFor(model => item)
+                    }
+                    
+                </table>
+                @*Job History End*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Delete", "Delete", new { id = Model.CustomerId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

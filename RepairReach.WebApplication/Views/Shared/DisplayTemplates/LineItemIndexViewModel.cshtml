@@ -1,0 +1,41 @@
+﻿@model RepairReach.WebApplication.ViewModels.LineItemIndexViewModel
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "LineItem", new { id=Model.LineItemId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.LineItemNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.TechnicianDisplayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.PartName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.PartAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.PartCost)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ServiceName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ServiceAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ServiceCost)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.TaxAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.TotalAmount)
+
+    </td>
+</tr>

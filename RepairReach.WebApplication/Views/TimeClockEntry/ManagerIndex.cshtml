@@ -1,0 +1,72 @@
+﻿@model IEnumerable<RepairReach.Core.Model.TimeClockEntry>
+
+@{
+    ViewBag.Title = "Manager Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-time"></i>
+                    Manage Time Clock
+                </h3>
+            </div>
+            <div class="box-content">
+                @Html.ActionLink("Create New", "Create")
+                <br />
+
+                <table class="table">
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staff.DisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateWorkedDisplay)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TimeInDisplay)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TimeOutDisplay)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HoursWorked)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id=item.TimeClockEntryId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Staff.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateWorkedDisplay)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TimeInDisplay)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TimeOutDisplay)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoursWorked)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

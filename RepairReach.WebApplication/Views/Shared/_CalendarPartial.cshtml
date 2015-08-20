@@ -1,0 +1,78 @@
+﻿@model IList<RepairReach.WebApplication.ViewModels.TeamIndexViewModel>
+
+<script type='text/javascript'>
+
+            $(document).ready(function() {
+
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                var calendar = $('.calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'resourceDay agendaWeek month'
+                    },
+                    allDaySlot: false,
+                    minTime: 6,
+                    maxTime: 23,
+                    titleFormat: 'ddd, MMM dd, yyyy',
+                    defaultView: 'agendaWeek',
+                    selectable: false,
+                    selectHelper: true,
+                    slotEventOverlap: false,
+                    disableDragging: true,
+                    disableResizing: true,
+                    editable: true,
+                    eventRender: function (event, element) {
+                        element.qtip({
+                            content: event.tooltipDescription,
+                            position: {
+                                my: 'bottom right',
+                                at: 'top left'
+                            }
+                        });
+                    },
+                    @*fuck jquery*@
+                    resources: [
+                        @for (int i = 0; i < @Model.Count(); i++)
+                        {
+                            <text>
+                            {
+                                name: '@(Model[i].DisplayName)',
+                                id: '@(Model[i].StaffId)'
+
+                            }
+                            </text>
+                            if (i != Model.Count() - 1){ <text>,</text> }
+                        }
+                    ],
+                    events: '/Appointment/GetAppointmentEvents/'
+                });
+                $(".fc-button-effect").remove();
+                $(".fc-button-next .fc-button-content").html("<i class='icon-chevron-right'></i>");
+                $(".fc-button-prev .fc-button-content").html("<i class='icon-chevron-left'></i>");
+                $(".fc-button-today").addClass('fc-corner-left');
+                $(".fc-button-prev").addClass('fc-corner-left');
+
+                $(".fc-button-resourceDay").removeClass('fc-corner-left');
+                $(".fc-button-agendaWeek").removeClass('fc-corner-left');
+                $(".fc-button-resourceDay").addClass('fc-corner-right');
+                $(".fc-button-agendaWeek").addClass('fc-corner-right');
+            });
+</script>
+
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            <i class="icon-calendar"></i>
+            Calendar
+        </h3>
+    </div>
+    <div class="box-content">
+        <div class="calendar"></div>
+    </div>
+</div>
+

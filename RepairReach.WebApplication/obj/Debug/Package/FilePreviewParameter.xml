@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="servicedepot" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Debug\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Debug\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="RepairReachDEV-Web.config Connection String" description="" value="Data Source=tcp:hr9bsz64tl.database.windows.net,1433;Initial Catalog=servicedepot_db;User ID=jonsnow@hr9bsz64tl;Password=Snowy12345!" tags="">
+    <parameterEntry kind="XmlFile" scope="E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RepairReachDEV']/@connectionString" />
+  </parameter>
+</parameters>

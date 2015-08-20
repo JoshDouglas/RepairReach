@@ -1,0 +1,83 @@
+﻿@model RepairReach.WebApplication.ViewModels.ApplianceViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="glyphicon-nails"></i>
+                    Edit Appliance
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Appliance.ApplianceId)
+                        @Html.HiddenFor(model => model.Appliance.JobId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Appliance.Make, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Appliance.Make)
+                                @Html.ValidationMessageFor(model => model.Appliance.Make)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Appliance.Type, "Type", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Appliance.Type, (SelectList)ViewBag.Type)
+                                @Html.ValidationMessageFor(model => model.Appliance.Type)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Appliance.ModelNumber, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Appliance.ModelNumber)
+                                @Html.ValidationMessageFor(model => model.Appliance.ModelNumber)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Appliance.SerialNumber, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Appliance.SerialNumber)
+                                @Html.ValidationMessageFor(model => model.Appliance.SerialNumber)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Appliance.ProblemDescription, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Appliance.ProblemDescription)
+                                @Html.ValidationMessageFor(model => model.Appliance.ProblemDescription)
+                            </div>
+                        </div>
+                        
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.Appliance.JobId }, null) | @Html.ActionLink("Delete", "Delete", new { id = Model.Appliance.ApplianceId, jobId = Model.Appliance.JobId })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

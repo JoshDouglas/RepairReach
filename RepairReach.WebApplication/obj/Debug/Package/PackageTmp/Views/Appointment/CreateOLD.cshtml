@@ -1,0 +1,99 @@
+﻿@model RepairReach.WebApplication.ViewModels.AppointmentViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $('.timepicker').timepicker({ 'step': 15, 'minTime': '6:00am', 'maxTime': '8:00pm' });
+
+        $('#StartDate').on('change', function () {
+            $('#EndDate').val($(this).val());
+        });
+
+        $('#StartTime').on('change', function () {
+            var hourDefaultTime = $(this).timepicker('getTime');
+            hourDefaultTime.setHours(hourDefaultTime.getHours() + 1);
+            $('#EndTime').timepicker('setTime', hourDefaultTime);
+        });
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-calendar"></i>
+                    Create Appointment
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        @Html.HiddenFor(model => model.JobId)
+                        @Html.HiddenFor(model => model.CreatedBy)
+                        @Html.HiddenFor(model => model.Created)
+
+                        <div class="form-group">
+                            Start
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.StartDate, new { @class = "input-small datepick" })
+                                @Html.ValidationMessageFor(model => model.StartDate)
+
+                                @Html.TextBoxFor(model => model.StartTime, new { @class = "input-small timepicker" })
+                                @Html.ValidationMessageFor(model => model.StartTime)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            End
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.EndDate, new { @class = "input-small datepick" })
+                                @Html.ValidationMessageFor(model => model.EndDate)
+
+                                @Html.TextBoxFor(model => model.EndTime, new { @class = "input-small timepicker" })
+                                @Html.ValidationMessageFor(model => model.EndTime)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            Technician
+                            <div class="col-md-10">
+                                @Html.DropDownList("TechnicianStaffId", string.Empty)
+                                @Html.ValidationMessageFor(model => model.TechnicianStaffId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            Note
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Note)
+                                @Html.ValidationMessageFor(model => model.Note)
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.JobId }, null)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

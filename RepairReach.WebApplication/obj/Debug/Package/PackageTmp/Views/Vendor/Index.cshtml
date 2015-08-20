@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RepairReach.WebApplication.ViewModels.VendorIndexViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-group"></i>
+                    Vendors
+                </h3>
+            </div>
+            <div class="box-content">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyPhone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Contact1Name)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        @Html.DisplayFor(modelItem => item)
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

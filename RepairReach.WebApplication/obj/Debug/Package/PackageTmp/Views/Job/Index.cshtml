@@ -1,0 +1,102 @@
+﻿@using MvcPaging;
+
+@model IEnumerable<RepairReach.WebApplication.ViewModels.JobIndexViewModel>
+
+@{
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Jobs";
+    }
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#JobStatusId").change(function (e) {
+            //var isClosed = $('#ShowClosedJobs').is(':checked');
+            var status = $(this).find(':selected').text();
+            window.location = "/Job/Index?status=" + status;
+        });
+
+        //$("#ShowClosedJobs").change(function (e) {
+        //    var isClosed = $(this).is(':checked');
+        //    var status = $('#JobStatusId').find(':selected').text();
+        //    window.location = "/Job/Index?status=" + status + "&isClosed=" + isClosed;
+        //});
+    });
+</script>
+
+<style>
+    
+</style>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-wrench"></i>
+                    @ViewBag.NumberOfJobs @ViewBag.Title 
+                    @if (@ViewBag.Title != "Jobs")
+                    {
+                        <text>
+                        Jobs
+                        </text>
+                    }
+                </h3>
+                <div class="actions">@*<div class="check-line"><input type="checkbox" id="ShowClosedJobs" class='icheck-me' data-skin="minimal" @if (@ViewBag.IsClosed == true) { <text>checked</text>}><label class='inline' for="ShowClosedJobs" style="color: white">Show Closed</label></div>*@ @Html.DropDownList("JobStatusId", string.Empty) </div>
+            </div>
+            <div class="box-content">
+                <p>
+                    <a href="@Url.Action("Create")"><button class="btn"><i class="icon-plus"></i> New Job</button></a>
+                </p>
+                @*table start*@
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().JobNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().CustomerDisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().StatusDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().SalesRepDisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().FullAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().FullContactName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().ContactPhone1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().TotalAmount)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        @Html.DisplayFor(model => item)
+                    }
+
+                </table>
+                @*table end*@
+
+                @*pagination*@
+                <div class="pager">
+                    @Html.Pager((int)ViewBag.PageSize, (int)ViewBag.PageNumber, (int)ViewBag.NumberOfJobs).Options(o => o.AddRouteValue("status", ViewBag.SelectedStatus))
+                </div>
+                @*pagination end*@
+            </div>
+        </div>
+    </div>
+</div>

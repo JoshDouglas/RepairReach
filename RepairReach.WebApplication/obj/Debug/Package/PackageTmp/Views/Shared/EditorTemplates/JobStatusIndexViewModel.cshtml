@@ -1,0 +1,29 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobStatusIndexViewModel
+
+<tr>
+    @Html.HiddenFor(modelItem => modelItem.JobStatusId)
+    @if (Model.Description.ToLower().Equals("closed") || Model.Description.ToLower().Equals("scheduled") || Model.Description.ToLower().Equals("reschedule")
+                                    || Model.Description.ToLower().Equals("needs approval") || Model.Description.ToLower().Equals("awaiting payment") || Model.Description.ToLower().Equals("on hold"))
+    {
+        <td>
+            @Html.TextBoxFor(modelItem => Model.Description, new { @readonly = "readonly" })
+        </td>
+    }
+    else
+    {
+        <td>
+            @Html.TextBoxFor(modelItem => Model.Description)
+        </td>
+    }
+
+    <td>
+        @Html.EditorFor(modelItem => Model.SequenceNumber)
+    </td>
+    <td>
+        @if (Model.Description.ToLower().Equals("closed") == false && Model.Description.ToLower().Equals("scheduled") == false && Model.Description.ToLower().Equals("reschedule") == false
+                                    && Model.Description.ToLower().Equals("needs approval") == false && Model.Description.ToLower().Equals("awaiting payment") == false && Model.Description.ToLower().Equals("on hold") == false)
+        {
+            @Html.ActionLink("Delete", "Delete", "JobStatus", new { id = Model.JobStatusId }, null)
+        }
+    </td>
+</tr>

@@ -1,0 +1,53 @@
+﻿@model IList<RepairReach.WebApplication.ViewModels.PaymentMethodIndexViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-credit-card"></i>
+                    Payment Methods
+                </h3>
+            </div>
+            <div class="box-content">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().SequenceNumber)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @using (Html.BeginForm("Update", "PaymentMethod", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div style="color:red">@Html.ValidationMessage("SequencesNotDistinct")</div>
+
+                        for (var i = 0; i < Model.Count; i++)
+                        {
+                            @Html.EditorFor(model => Model[i])
+                        }
+
+                        <tr>
+                            <td>
+                                <input id="PaymentMethodSave" type="submit" value="Save" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

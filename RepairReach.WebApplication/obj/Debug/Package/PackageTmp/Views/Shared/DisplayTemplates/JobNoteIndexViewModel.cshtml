@@ -1,0 +1,16 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobNoteIndexViewModel
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "JobNote", new { id=Model.JobNoteId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Note)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.CreatedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.CreatedDate)
+    </td>
+</tr>

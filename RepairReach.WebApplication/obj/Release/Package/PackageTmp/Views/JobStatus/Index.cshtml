@@ -1,0 +1,79 @@
+﻿@model IList<RepairReach.Core.Model.JobStatus>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-flag"></i>
+                    Statuses
+                </h3>
+            </div>
+            <div class="box-content">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().SequenceNumber)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @using (Html.BeginForm("Update", "JobStatus", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div style="color:red">@Html.ValidationMessage("SequencesNotDistinct")</div>
+
+                        for (var i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                @Html.HiddenFor(modelItem => Model[i].JobStatusId)
+                                @if (Model[i].Description.ToLower().Equals("closed") || Model[i].Description.ToLower().Equals("scheduled") || Model[i].Description.ToLower().Equals("reschedule")
+                                    || Model[i].Description.ToLower().Equals("needs approval") || Model[i].Description.ToLower().Equals("awaiting payment") || Model[i].Description.ToLower().Equals("on hold"))
+                                {
+                                    <td>
+                                        @Html.TextBoxFor(modelItem => Model[i].Description, new { @readonly = "readonly" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.TextBoxFor(modelItem => Model[i].Description)
+                                    </td>
+                                }
+                                
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].SequenceNumber)
+                                </td>
+                                <td>
+                                    @if (Model[i].Description.ToLower().Equals("closed") == false && Model[i].Description.ToLower().Equals("scheduled") == false && Model[i].Description.ToLower().Equals("reschedule") == false
+                                    && Model[i].Description.ToLower().Equals("needs approval") == false && Model[i].Description.ToLower().Equals("awaiting payment") == false && Model[i].Description.ToLower().Equals("on hold") == false)
+                                    {
+                                        @Html.ActionLink("Delete", "Delete", new { id = Model[i].JobStatusId })
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>
+                                <input id="JobStatusSave" type="submit" value="Save" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

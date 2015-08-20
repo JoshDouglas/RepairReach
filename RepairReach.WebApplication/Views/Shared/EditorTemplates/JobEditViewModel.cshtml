@@ -1,0 +1,198 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobEditViewModel
+
+@Html.HiddenFor(model => model.JobId)
+@Html.HiddenFor(model => model.JobCreated)
+@Html.HiddenFor(model => model.JobClosed)
+@Html.HiddenFor(model => model.LastViewedBy)
+@Html.HiddenFor(model => model.LastViewedTime)
+
+<br />
+
+<div class="row-fluid">
+    <div class="span6">
+        <h5><i class="icon-info-sign"></i> Tracking Info</h5>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.JobNumber, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.JobNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CustomerDisplayName, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.CustomerId)
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.CustomerId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StaffId", String.Empty)
+                @Html.ValidationMessageFor(model => model.StaffId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobCategoryId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JobCategoryId", String.Empty)
+                @Html.ValidationMessageFor(model => model.JobCategoryId)
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobStatusId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JobStatusId")
+                @Html.ValidationMessageFor(model => model.JobStatusId)
+            </div>
+        </div>
+
+        <br />
+    </div>
+
+    <div class="span6">
+        <h5><i class="icon-user"></i> Contact Info</h5>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address1)
+                @Html.ValidationMessageFor(model => model.Address1)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address2)
+                @Html.ValidationMessageFor(model => model.Address2)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State)
+                @Html.ValidationMessageFor(model => model.State)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zipcode)
+                @Html.ValidationMessageFor(model => model.Zipcode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactFirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactFirstName)
+                @Html.ValidationMessageFor(model => model.ContactFirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactLastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactLastName)
+                @Html.ValidationMessageFor(model => model.ContactLastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactPhone1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactPhone1, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.ContactPhone1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactPhone2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactPhone2, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.ContactPhone2)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <h5><i class="icon-money"></i> Billing Info</h5>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GrandTotal, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.GrandTotal, new { @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BalanceDue, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BalanceDue, new { @readonly = "readonly" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div id="closed-balance-due-error" style="display: none;">
+            <br />
+            <div class="alert alert-error">
+                Someone has to pay up, this can't be closed until the balance due is 0!
+            </div>
+        </div>
+
+    </div>
+    <div class="span6">
+        <h5><i class="icon-bullhorn"></i> Activity Log</h5>
+        <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => Model.ActivityEvents.First().EventTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.ActivityEvents.First().Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.ActivityEvents.First().CausedBy)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.ActivityEvents)
+            {
+                @Html.DisplayFor(model => item)
+            }
+        </table>
+    </div>  
+</div>

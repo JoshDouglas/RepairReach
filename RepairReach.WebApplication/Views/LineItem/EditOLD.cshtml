@@ -1,0 +1,354 @@
+﻿@model RepairReach.Core.Model.LineItem
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script>
+    jQuery(document).ready(function () {
+        $("#ServiceId").change(function () {
+            var id = $('#ServiceId').val();
+            var ServiceUrl = "/Service/GetServiceById?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#ServiceName').val(result.Name);
+                    $('#ServiceAmount').val(result.Amount);
+                    $('#ServiceCost').val(result.Cost);
+                }
+            });
+        });
+
+        $("#PartId").change(function () {
+            var id = $('#PartId').val();
+            var ServiceUrl = "/Part/GetPartById?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#PartName').val(result.Name);
+                    $('#PartAmount').val(result.Amount);
+                    $('#PartCost').val(result.Cost);
+                    $('#PartNumber').val(result.PartNumber);
+                }
+            });
+        });
+
+        $("#QuickLineItemId").change(function () {
+            var id = $('#QuickLineItemId').val();
+
+            if (id.length > 0) {
+                PopulateQuickLine(id);
+            } else {
+                $('#Description').val('');
+
+                $('#PartName').val('');
+                $('#PartNumber').val('');
+                $('#PartQty').val('');
+                $('#PartEach').val('');
+                $('#PartCost').val('');
+
+                $('#ServiceName').val('');
+                $('#ServiceQty').val('');
+                $('#ServiceEach').val('');
+                $('#ServiceCost').val('');
+            }
+        });
+
+        function PopulateQuickLine(id) {
+            var ServiceUrl = "/QuickLineItem/GetJsonAsync?id=" + id;
+            var content = '';
+            $.support.cors = true;
+            $.ajax({
+                type: 'GET',
+                url: ServiceUrl,
+                async: true,
+                cache: false,
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                error: function (xhr, err) {
+                },
+                success: function (result, status) {
+                    $('#Description').val(result.Description);
+
+                    $('#PartName').val(result.PartName);
+                    $('#PartNumber').val(result.PartNumber);
+                    $('#PartQty').val(result.PartQty);
+                    $('#PartEach').val(result.PartEach);
+                    $('#PartCost').val(result.PartCost);
+
+                    $('#ServiceName').val(result.ServiceName);
+                    $('#ServiceQty').val(result.ServiceQty);
+                    $('#ServiceEach').val(result.ServiceEach);
+                    $('#ServiceCost').val(result.ServiceCost);
+                }
+            });
+        }
+
+        $("#QuickLineSearch").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/QuickLineItem/GetTermJsonAsync",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Description, value: item.QuickLineItemId };
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                this.value = "";
+                PopulateQuickLine(ui.item.value);
+                return false;
+            }
+        });
+
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-reorder"></i>
+                    Edit Line Item
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.JobId)
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.LineItemId)
+                        
+                        <h5>Line Info</h5>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LineItemNumber, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.LineItemNumber, new { @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.LineItemNumber)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StaffId, "StaffId", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("StaffId", String.Empty)
+                                @Html.ValidationMessageFor(model => model.StaffId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TaxRateId, "TaxRateId", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("TaxRateId", String.Empty)
+                                @Html.ValidationMessageFor(model => model.TaxRateId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Description)
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                        
+                        <h5>Quick Line</h5>
+
+                        @*<div class="form-group">
+                            <div class="control-label col-md-2">Service Template</div>
+                            <div class="col-md-10">
+                                @Html.DropDownList("ServiceId", string.Empty)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="control-label col-md-2">Part Template</div>
+                            <div class="col-md-10">
+                                @Html.DropDownList("PartId", string.Empty)
+                            </div>
+                        </div>*@
+                        
+                        <div class="form-group">
+                            <div class="control-label col-md-2">Enter:</div>
+                            <div class="col-md-10">
+                                <input type="text" id="QuickLineSearch" placeholder="Search for a quick line" />
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <div class="control-label col-md-2">Select:</div>
+                            <div class="col-md-10">
+                                @Html.DropDownList("QuickLineItemId", string.Empty)
+                            </div>
+                        </div>*@
+
+                        <h5>Part</h5>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PartName, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PartName)
+                                @Html.ValidationMessageFor(model => model.PartName)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PartNumber, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PartNumber)
+                                @Html.ValidationMessageFor(model => model.PartNumber)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PartQty, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PartQty)
+                                @Html.ValidationMessageFor(model => model.PartQty)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PartEach, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PartEach)
+                                @Html.ValidationMessageFor(model => model.PartEach)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PartCost, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PartCost)
+                                @Html.ValidationMessageFor(model => model.PartCost)
+                            </div>
+                        </div>
+
+                        <h5>Service</h5>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ServiceName, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ServiceName)
+                                @Html.ValidationMessageFor(model => model.ServiceName)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ServiceQty, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ServiceQty)
+                                @Html.ValidationMessageFor(model => model.ServiceQty)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ServiceEach, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ServiceEach)
+                                @Html.ValidationMessageFor(model => model.ServiceEach)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ServiceCost, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ServiceCost)
+                                @Html.ValidationMessageFor(model => model.ServiceCost)
+                            </div>
+                        </div>
+
+                        @*<h5>Labor</h5>*@
+
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.LaborQty, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LaborQty)
+                                @Html.ValidationMessageFor(model => model.LaborQty)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LaborEach, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LaborEach)
+                                @Html.ValidationMessageFor(model => model.LaborEach)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LaborCost, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LaborCost)
+                                @Html.ValidationMessageFor(model => model.LaborCost)
+                            </div>
+                        </div>*@
+
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.ServiceName, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ServiceName)
+                                    Service Template @Html.DropDownList("ServiceId", string.Empty)
+                                    @Html.ValidationMessageFor(model => model.ServiceName)
+                                </div>
+                            </div>*@
+
+
+
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.PartName, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PartName)
+                                    Part Template @Html.DropDownList("PartId", string.Empty)
+                                    @Html.ValidationMessageFor(model => model.PartName)
+                                </div>
+                            </div>*@
+                        
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.JobId }, null) | @Html.ActionLink("Delete", "Delete", new { id = Model.LineItemId })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

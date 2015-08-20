@@ -1,0 +1,27 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobNoteEditViewModel
+
+@Html.HiddenFor(model => model.JobNoteId)
+@Html.HiddenFor(model => model.JobId)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedDate)
+
+@if (ViewBag.NoteCreatedByDifferentUser == true)
+{
+    <div style="color:red">This ain't your note, make your own!</div>
+    <br />
+}
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Note, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @if (ViewBag.NoteCreatedByDifferentUser == false)
+        {
+            @Html.TextAreaFor(model => model.Note)
+        }
+        else
+        {
+            @Html.TextAreaFor(model => model.Note, new { @readonly = "readonly" })
+        }
+        @Html.ValidationMessageFor(model => model.Note)
+    </div>
+</div>

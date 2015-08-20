@@ -1,0 +1,49 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobNoteEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-edit"></i>
+                    Edit Note
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        @Html.EditorFor(model => Model)
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @if (ViewBag.NoteCreatedByDifferentUser == false)
+                                {
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Edit", "Job", new { id = Model.JobId }, null) |
+                    @if (ViewBag.NoteCreatedByDifferentUser == false)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = Model.JobNoteId })
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

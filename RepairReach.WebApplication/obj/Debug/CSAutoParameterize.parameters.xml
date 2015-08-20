@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="RepairReach-Web.config Connection String" description="RepairReach Connection String used in web.config by the application to access the database." defaultValue="Data Source=(localdb)\v11.0;Initial Catalog=RepairReach;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RepairReach']/@connectionString" />
+  </parameter>
+  <parameter name="RepairReach_DatabasePublish-Web.config Connection String" description="RepairReach_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="RepairReach_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RepairReach_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>

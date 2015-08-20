@@ -1,0 +1,15 @@
+﻿@model RepairReach.WebApplication.ViewModels.HowDidYouFindUsIndexViewModel
+    
+<tr>
+    @Html.HiddenFor(modelItem => Model.HowDidYouFindUsId)
+    <td>
+        @Html.TextBoxFor(modelItem => Model.Description)
+    </td>
+
+    <td>
+        @Html.EditorFor(modelItem => Model.SequenceNumber)
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", "HowDidYouFindUs", new { id = Model.HowDidYouFindUsId }, null)
+    </td>
+</tr>

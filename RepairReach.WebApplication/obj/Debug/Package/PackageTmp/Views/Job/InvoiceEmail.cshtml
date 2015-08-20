@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Invoice Email";
+}
+
+<h2>Invoice Email</h2>
+
+@if (ViewBag.EmailSent == true)
+{
+    <h5 style="color: green">Invoice sent to @ViewBag.CustomerEmail succesfully!</h5>
+}
+else
+{
+    <h5 style="color: red">Sorry something bad happened, the invoice was not sent.</h5>
+}
+
+<a href="@Url.Action("Edit", "Job", new { id=@ViewBag.JobId })"><button class="btn"><i class="icon-wrench"></i> Back to Job</button></a>

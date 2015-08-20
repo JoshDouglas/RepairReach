@@ -1,0 +1,213 @@
+﻿@using System.Activities.Expressions
+@using System.Linq;
+@using RepairReach.Data;
+
+@{
+    var context = new RepairReachContext();
+}
+
+@{
+    var logoUrl = string.Empty;
+    var singleOrDefault = context.Companies.SingleOrDefault();
+    if (singleOrDefault != null)
+    {
+        logoUrl = singleOrDefault.LogoPath;
+    }
+}
+
+<div id="left" class="ui-sortable ui-resizable">
+    @*<form action="search-results.html" method="GET" class="search-form">
+			    <div class="search-pane">
+				    <input type="text" name="search" placeholder="Search here...">
+				    <button type="submit"><i class="icon-search"></i></button>
+			    </div>
+		    </form>*@
+    
+    @if (string.IsNullOrEmpty(logoUrl) == false)
+    {
+        <div class="subnav">
+            <a href="@Url.Action("Index", "Home")"><img style="display: block; margin: auto;" src="@Url.Content(logoUrl)" /></a>
+        </div>
+    }
+    
+    @Html.Partial("_SearchPartial")
+
+    <div class="subnav">
+        <div class="subnav-title">
+            <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Home</span></a>
+        </div>
+        <ul class="subnav-menu">
+            <li>
+                @Html.ActionLink("Dashboard", "Dashboard", "Home")
+            </li>
+        </ul>
+    </div>    
+    <div class="subnav">
+		<div class="subnav-title">
+			<a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Customers</span></a>
+		</div>
+		<ul class="subnav-menu">
+			<li>
+				@Html.ActionLink("New", "Create", "Customer")
+			</li>
+            <li>
+				@Html.ActionLink("All", "Index", "Customer")
+			</li>
+            @*<li>
+				@Html.ActionLink("Individuals", "Index", "Customer", new { designation = "Individual" }, null)
+			</li>
+            <li>
+				@Html.ActionLink("Companies", "Index", "Customer", new { designation = "Company" }, null)
+			</li>*@
+		</ul>
+	</div>
+    <div class="subnav">
+        <div class="subnav-title">
+            <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Jobs</span></a>
+        </div>
+        <ul class="subnav-menu">
+            <li>
+                @Html.ActionLink("New", "Create", "Job")
+            </li>
+            <li>
+                @Html.ActionLink("All", "Index", "Job")
+            </li>
+            <li>
+                @Html.ActionLink("Closed", "Index", "Job", new { status = "Closed" }, null)
+            </li>
+            @*<li>
+                    @{ var notAuthorizedCount = jobs.Count(j => j.JobType == "Estimate");}
+                    @Html.ActionLink("(" + notAuthorizedCount + ") " + "Not Authorized", "Index", "Job", new { jobSubType = "Not Authorized" }, null)
+                </li>*@
+        </ul>
+    </div>
+
+    <div class="subnav">
+		<div class="subnav-title">
+			<a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Dispatch</span></a>
+		</div>
+		<ul class="subnav-menu">
+            @*<li>
+				<a href="#">Maps</a>
+			</li>*@
+			<li>
+				@Html.ActionLink("Calendar", "Index", "Calendar")
+			</li>
+            <li>
+                @Html.ActionLink("Map", "Index", "Map")
+            </li>
+		</ul>
+	</div>
+    @*<div class="subnav">
+			    <div class="subnav-title">
+				    <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Parts</span></a>
+			    </div>
+			    <ul class="subnav-menu">
+                    <li>
+					    @Html.ActionLink("New Appliance", "Create", "Appliance")
+				    </li>
+				    <li>
+					    @Html.ActionLink("All Appliances", "Index", "Appliance")
+				    </li>
+                    <li>
+                        @Html.ActionLink("New Part", "Create", "Part")
+                    </li>
+                    <li>
+                        @Html.ActionLink("All Parts", "Index", "Part")
+                    </li>
+			    </ul>
+		    </div>*@
+            
+            @*<div class="subnav">
+                <div class="subnav-title">
+                    <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Jobs In Progress</span></a>
+                </div>
+                <ul class="subnav-menu">
+                    <li>
+                        @{ var allJobsInProgressCount = jobs.Count(j => j.JobType == "WorkOrder");}
+                        @Html.ActionLink("(" + allJobsInProgressCount + ") " + "All Jobs In Progress", "Index", "Job", new { jobSubType = "All Jobs In Progress" }, null)
+                    </li>
+                    <li>
+                        @{ var notScheduledCount = jobs.Count(j => j.JobSubType == "Not Scheduled");}
+                        @Html.ActionLink("(" + notScheduledCount + ") " + "Not Scheduled", "Index", "Job", new { jobSubType = "Not Scheduled" }, null)
+                    </li>
+                    <li>
+                        @{ var workstartedCount = jobs.Count(j => j.JobSubType == "Work Started");}
+                        @Html.ActionLink("(" + workstartedCount + ") " + "Work Started", "Index", "Job", new { jobSubType = "Work Started" }, null)
+                    </li>
+                    <li>
+                        @{ var workFinishedCount = jobs.Count(j => j.JobSubType == "Work Finished");}
+                        @Html.ActionLink("(" + workFinishedCount + ") " + "Work Finished", "Index", "Job", new { jobSubType = "Work Finished" }, null)
+                    </li>
+                </ul>
+            </div>*@
+            @*<div class="subnav">
+                <div class="subnav-title">
+                    <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Completed Jobs</span></a>
+                </div>
+                <ul class="subnav-menu">
+                    <li>
+                        @Html.ActionLink("All Completed Jobs", "Index", "Job", new { jobSubType = "All Completed Jobs" }, null)
+                    </li>
+                    <li>
+                        @{ var notBilledCount = jobs.Count(j => j.JobSubType == "Not Billed");}
+                        @Html.ActionLink("(" + notBilledCount + ") " + "Not Billed", "Index", "Job", new { jobSubType = "Not Billed" }, null)
+                    </li>
+                </ul>
+            </div>*@
+
+    @*<div class="subnav">
+			    <div class="subnav-title">
+				    <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Jobs (Status)</span></a>
+			    </div>
+			    <ul class="subnav-menu">
+				    <li>
+					    @Html.ActionLink("New", "Create", "Job")
+				    </li>
+                    <li>
+                        @{int allCount = (from j in context.Jobs select j).Count();}
+                        @Html.ActionLink("(" + allCount + ") " + "All", "Index", "Job")
+                    </li>
+                    @foreach (var status in (from s in context.JobDescriptiones orderby s.SequenceNumber select s).ToList())
+                    {
+                        <li>
+                            @{int statusCount = (from j in context.Jobs where j.JobDescription.Description == status.Description select j).Count();}
+                            @Html.ActionLink("(" + statusCount + ") " + status.Description, "Index", "Job", new {status = status.Description }, null)
+                        </li> 
+                    }
+			    </ul>
+		    </div>
+            <div class="subnav">
+			    <div class="subnav-title">
+				    <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Jobs (Category)</span></a>
+			    </div>
+			    <ul class="subnav-menu">
+                    @foreach (var category in (from c in context.JobCategories orderby c.SequenceNumber select c).ToList())
+                    {
+                        <li>
+                            @{int categoryCount = (from j in context.Jobs where j.JobCategory.Description == category.Description select j).Count();}
+                            @Html.ActionLink("(" + categoryCount + ") " + category.Description, "Index", "Job", new {category = category.Description }, null)
+                        </li> 
+                    }
+			    </ul>
+		    </div>*@
+    <div class="subnav">
+        <div class="subnav-title">
+            <a href="#" class="toggle-subnav"><i class="icon-angle-down"></i><span>Management</span></a>
+        </div>
+        <ul class="subnav-menu">
+            @*07.17.2014 JDD - this is handled by job status awaiting payment - removing for now*@
+            @*<li>
+                @Html.ActionLink("(" + receivablesCount + ") Receivables", "Receivables", "Management")
+            </li>*@
+            <li>
+                @Html.ActionLink("Activity Log", "ActivityLog", "Management", null, null)
+            </li>
+            <li>
+                @Html.ActionLink("Reports", "Index", "ReportMenu", null, null)
+            </li>
+        </ul>
+    </div>
+    
+    <div class="ui-resizable-handle ui-resizable-e" style="z-index: 90; height: 596px;"></div>
+</div>

@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E32B3E94-EE6B-4E3F-8B9D-34A993B4B7D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RepairReach.Data</RootNamespace>
+    <AssemblyName>RepairReach.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.1.0.16006\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\Mapping\HowDidYouFindUsEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\PaymentMethodEntityTypeConfigurator.cs" />
+    <Compile Include="Migrations\201407110541299_AddCompanyLogo.cs" />
+    <Compile Include="Migrations\201407110541299_AddCompanyLogo.Designer.cs">
+      <DependentUpon>201407110541299_AddCompanyLogo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407160721590_AddProblemDescriptionAppliance.cs" />
+    <Compile Include="Migrations\201407160721590_AddProblemDescriptionAppliance.Designer.cs">
+      <DependentUpon>201407160721590_AddProblemDescriptionAppliance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407160723453_RemoveDescriptionJob.cs" />
+    <Compile Include="Migrations\201407160723453_RemoveDescriptionJob.Designer.cs">
+      <DependentUpon>201407160723453_RemoveDescriptionJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407170747584_AddHowDidYouFindUs.cs" />
+    <Compile Include="Migrations\201407170747584_AddHowDidYouFindUs.Designer.cs">
+      <DependentUpon>201407170747584_AddHowDidYouFindUs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407170749563_AddHowDidYouFindUsToCustomer.cs" />
+    <Compile Include="Migrations\201407170749563_AddHowDidYouFindUsToCustomer.Designer.cs">
+      <DependentUpon>201407170749563_AddHowDidYouFindUsToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407180417426_AddCollectAndCallToCustomer.cs" />
+    <Compile Include="Migrations\201407180417426_AddCollectAndCallToCustomer.Designer.cs">
+      <DependentUpon>201407180417426_AddCollectAndCallToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407200639053_AddImportedIdCustomerJob.cs" />
+    <Compile Include="Migrations\201407200639053_AddImportedIdCustomerJob.Designer.cs">
+      <DependentUpon>201407200639053_AddImportedIdCustomerJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407200700411_ImportIdNullableJobCustomer.cs" />
+    <Compile Include="Migrations\201407200700411_ImportIdNullableJobCustomer.Designer.cs">
+      <DependentUpon>201407200700411_ImportIdNullableJobCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407222219210_JobLocation.cs" />
+    <Compile Include="Migrations\201407222219210_JobLocation.Designer.cs">
+      <DependentUpon>201407222219210_JobLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407231719223_AddImportedStaffId.cs" />
+    <Compile Include="Migrations\201407231719223_AddImportedStaffId.Designer.cs">
+      <DependentUpon>201407231719223_AddImportedStaffId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407231808111_StaffDisplayName50Characters.cs" />
+    <Compile Include="Migrations\201407231808111_StaffDisplayName50Characters.Designer.cs">
+      <DependentUpon>201407231808111_StaffDisplayName50Characters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407280318477_SalesRepStatusRequiredJob.cs" />
+    <Compile Include="Migrations\201407280318477_SalesRepStatusRequiredJob.Designer.cs">
+      <DependentUpon>201407280318477_SalesRepStatusRequiredJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407280346596_StaffRequiredLineItem.cs" />
+    <Compile Include="Migrations\201407280346596_StaffRequiredLineItem.Designer.cs">
+      <DependentUpon>201407280346596_StaffRequiredLineItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407280349098_LineItemJobForeignKeysNotNullable.cs" />
+    <Compile Include="Migrations\201407280349098_LineItemJobForeignKeysNotNullable.Designer.cs">
+      <DependentUpon>201407280349098_LineItemJobForeignKeysNotNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408070623493_ApplianceTypeRequiredOnly.cs" />
+    <Compile Include="Migrations\201408070623493_ApplianceTypeRequiredOnly.Designer.cs">
+      <DependentUpon>201408070623493_ApplianceTypeRequiredOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408120436210_AddStaffUsername.cs" />
+    <Compile Include="Migrations\201408120436210_AddStaffUsername.Designer.cs">
+      <DependentUpon>201408120436210_AddStaffUsername.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408120505243_StaffUsernameRequired.cs" />
+    <Compile Include="Migrations\201408120505243_StaffUsernameRequired.Designer.cs">
+      <DependentUpon>201408120505243_StaffUsernameRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408130605471_AddCallTextOnWayAppointment.cs" />
+    <Compile Include="Migrations\201408130605471_AddCallTextOnWayAppointment.Designer.cs">
+      <DependentUpon>201408130605471_AddCallTextOnWayAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408192352191_AddNotePayment.cs" />
+    <Compile Include="Migrations\201408192352191_AddNotePayment.Designer.cs">
+      <DependentUpon>201408192352191_AddNotePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408202354204_AddPaymentMethodObject.cs" />
+    <Compile Include="Migrations\201408202354204_AddPaymentMethodObject.Designer.cs">
+      <DependentUpon>201408202354204_AddPaymentMethodObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408210024331_PaymentMethodDescription.cs" />
+    <Compile Include="Migrations\201408210024331_PaymentMethodDescription.Designer.cs">
+      <DependentUpon>201408210024331_PaymentMethodDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RepairReachContext.cs" />
+    <Compile Include="RepairReachEntityContext.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Infrastructure\Conventions\CLRDateTimeToSqlDateTime2.cs" />
+    <Compile Include="Infrastructure\Conventions\MaxStringLengthConvention.cs" />
+    <Compile Include="Infrastructure\Identity\User.cs" />
+    <Compile Include="Infrastructure\Interceptors\ConnectionBreakInterceptor.cs" />
+    <Compile Include="Infrastructure\Mapping\ActivityEventEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\ApplianceEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\AppointmentEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\CompanyEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\BusinessTrackerDbConfiguration.cs" />
+    <Compile Include="Infrastructure\Mapping\QuickLineItemEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\TimeClockEntryEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\VendorEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\UserEntityTypeConfigurator.cs" />
+    <Compile Include="Infrastructure\Mapping\CustomerEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\JobCategoryEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\JobEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\JobNoteEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\JobStatusEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\LineItemEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\PartEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\PaymentEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\ServiceEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\StaffEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Mapping\TaxRateEntityTypeConfigurator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\201406110356207_Initial.cs" />
+    <Compile Include="Migrations\201406110356207_Initial.Designer.cs">
+      <DependentUpon>201406110356207_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406190603169_AddAppointment.cs" />
+    <Compile Include="Migrations\201406190603169_AddAppointment.Designer.cs">
+      <DependentUpon>201406190603169_AddAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406190617582_AddStaffObjectsAppointment.cs" />
+    <Compile Include="Migrations\201406190617582_AddStaffObjectsAppointment.Designer.cs">
+      <DependentUpon>201406190617582_AddStaffObjectsAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406190620332_AddCreatedDateAppointment.cs" />
+    <Compile Include="Migrations\201406190620332_AddCreatedDateAppointment.Designer.cs">
+      <DependentUpon>201406190620332_AddCreatedDateAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406210628020_JobRenamedCompletedToClosed.cs" />
+    <Compile Include="Migrations\201406210628020_JobRenamedCompletedToClosed.Designer.cs">
+      <DependentUpon>201406210628020_JobRenamedCompletedToClosed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406210633279_JobAddedIsAuthorizedIsClosed.cs" />
+    <Compile Include="Migrations\201406210633279_JobAddedIsAuthorizedIsClosed.Designer.cs">
+      <DependentUpon>201406210633279_JobAddedIsAuthorizedIsClosed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406210653036_JobIsAuthorizedIsClosedNotNullable.cs" />
+    <Compile Include="Migrations\201406210653036_JobIsAuthorizedIsClosedNotNullable.Designer.cs">
+      <DependentUpon>201406210653036_JobIsAuthorizedIsClosedNotNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406220956162_AppointmentAddCompletedTime.cs" />
+    <Compile Include="Migrations\201406220956162_AppointmentAddCompletedTime.Designer.cs">
+      <DependentUpon>201406220956162_AppointmentAddCompletedTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406221003024_AppointmentEditCompletedTimeNullable.cs" />
+    <Compile Include="Migrations\201406221003024_AppointmentEditCompletedTimeNullable.Designer.cs">
+      <DependentUpon>201406221003024_AppointmentEditCompletedTimeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406290930009_RemoveIsClosedFromJobTable.cs" />
+    <Compile Include="Migrations\201406290930009_RemoveIsClosedFromJobTable.Designer.cs">
+      <DependentUpon>201406290930009_RemoveIsClosedFromJobTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406300714226_AddActivityEvent.cs" />
+    <Compile Include="Migrations\201406300714226_AddActivityEvent.Designer.cs">
+      <DependentUpon>201406300714226_AddActivityEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406300816594_ActivityEventJobRelationshipUpdate.cs" />
+    <Compile Include="Migrations\201406300816594_ActivityEventJobRelationshipUpdate.Designer.cs">
+      <DependentUpon>201406300816594_ActivityEventJobRelationshipUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406300824470_AddCausedByToActivityEvent.cs" />
+    <Compile Include="Migrations\201406300824470_AddCausedByToActivityEvent.Designer.cs">
+      <DependentUpon>201406300824470_AddCausedByToActivityEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406301948456_RefactorApplianceToJob.cs" />
+    <Compile Include="Migrations\201406301948456_RefactorApplianceToJob.Designer.cs">
+      <DependentUpon>201406301948456_RefactorApplianceToJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407010311151_RemoveLaborLineItem.cs" />
+    <Compile Include="Migrations\201407010311151_RemoveLaborLineItem.Designer.cs">
+      <DependentUpon>201407010311151_RemoveLaborLineItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407010334485_AddQuickLineItem.cs" />
+    <Compile Include="Migrations\201407010334485_AddQuickLineItem.Designer.cs">
+      <DependentUpon>201407010334485_AddQuickLineItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407030555392_RemoveNoteCategory.cs" />
+    <Compile Include="Migrations\201407030555392_RemoveNoteCategory.Designer.cs">
+      <DependentUpon>201407030555392_RemoveNoteCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407050939141_AddLastViewedTimeJob.cs" />
+    <Compile Include="Migrations\201407050939141_AddLastViewedTimeJob.Designer.cs">
+      <DependentUpon>201407050939141_AddLastViewedTimeJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407062348504_AddTimeZoneInfoToCompany.cs" />
+    <Compile Include="Migrations\201407062348504_AddTimeZoneInfoToCompany.Designer.cs">
+      <DependentUpon>201407062348504_AddTimeZoneInfoToCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplianceRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IBaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAppointmentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IActivityEventRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IHowDidYouFindUsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentMethodRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IQuickLineItemRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITimeClockEntryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IVendorRepository.cs" />
+    <Compile Include="Repositories\AppointmentRepository.cs" />
+    <Compile Include="Repositories\ActivityEventRepository.cs" />
+    <Compile Include="Repositories\HowDidYouFindUsRepository.cs" />
+    <Compile Include="Repositories\PaymentMethodRepository.cs" />
+    <Compile Include="Repositories\QuickLineItemRepository.cs" />
+    <Compile Include="Repositories\TimeClockEntryRepository.cs" />
+    <Compile Include="Repositories\VendorRepository.cs" />
+    <Compile Include="Repositories\StaffRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\JobRepository.cs" />
+    <Compile Include="Repositories\JobNoteRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IStaffRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IJobNoteRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IJobRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITaxRateRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IServiceRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPartRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ILineItemRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IJobStatusRepository.cs" />
+    <Compile Include="Repositories\CompanyRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IApplianceRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IJobCategoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICompanyRepository.cs" />
+    <Compile Include="Repositories\JobCategoryRepository.cs" />
+    <Compile Include="Repositories\JobStatusRepository.cs" />
+    <Compile Include="Repositories\LineItemRepository.cs" />
+    <Compile Include="Repositories\PartRepository.cs" />
+    <Compile Include="Repositories\ServiceRepository.cs" />
+    <Compile Include="Repositories\TaxRateRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RepairReach.Core\RepairReach.Core.csproj">
+      <Project>{3d3813be-e9b5-4d52-b9c9-5a6cbdc4161d}</Project>
+      <Name>RepairReach.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406110356207_Initial.resx">
+      <DependentUpon>201406110356207_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406190603169_AddAppointment.resx">
+      <DependentUpon>201406190603169_AddAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406190617582_AddStaffObjectsAppointment.resx">
+      <DependentUpon>201406190617582_AddStaffObjectsAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406190620332_AddCreatedDateAppointment.resx">
+      <DependentUpon>201406190620332_AddCreatedDateAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406210628020_JobRenamedCompletedToClosed.resx">
+      <DependentUpon>201406210628020_JobRenamedCompletedToClosed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406210633279_JobAddedIsAuthorizedIsClosed.resx">
+      <DependentUpon>201406210633279_JobAddedIsAuthorizedIsClosed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406210653036_JobIsAuthorizedIsClosedNotNullable.resx">
+      <DependentUpon>201406210653036_JobIsAuthorizedIsClosedNotNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406220956162_AppointmentAddCompletedTime.resx">
+      <DependentUpon>201406220956162_AppointmentAddCompletedTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406221003024_AppointmentEditCompletedTimeNullable.resx">
+      <DependentUpon>201406221003024_AppointmentEditCompletedTimeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406290930009_RemoveIsClosedFromJobTable.resx">
+      <DependentUpon>201406290930009_RemoveIsClosedFromJobTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406300714226_AddActivityEvent.resx">
+      <DependentUpon>201406300714226_AddActivityEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406300816594_ActivityEventJobRelationshipUpdate.resx">
+      <DependentUpon>201406300816594_ActivityEventJobRelationshipUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406300824470_AddCausedByToActivityEvent.resx">
+      <DependentUpon>201406300824470_AddCausedByToActivityEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406301948456_RefactorApplianceToJob.resx">
+      <DependentUpon>201406301948456_RefactorApplianceToJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407010311151_RemoveLaborLineItem.resx">
+      <DependentUpon>201407010311151_RemoveLaborLineItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407010334485_AddQuickLineItem.resx">
+      <DependentUpon>201407010334485_AddQuickLineItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407030555392_RemoveNoteCategory.resx">
+      <DependentUpon>201407030555392_RemoveNoteCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407050939141_AddLastViewedTimeJob.resx">
+      <DependentUpon>201407050939141_AddLastViewedTimeJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407062348504_AddTimeZoneInfoToCompany.resx">
+      <DependentUpon>201407062348504_AddTimeZoneInfoToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407110541299_AddCompanyLogo.resx">
+      <DependentUpon>201407110541299_AddCompanyLogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407160721590_AddProblemDescriptionAppliance.resx">
+      <DependentUpon>201407160721590_AddProblemDescriptionAppliance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407160723453_RemoveDescriptionJob.resx">
+      <DependentUpon>201407160723453_RemoveDescriptionJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407170747584_AddHowDidYouFindUs.resx">
+      <DependentUpon>201407170747584_AddHowDidYouFindUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407170749563_AddHowDidYouFindUsToCustomer.resx">
+      <DependentUpon>201407170749563_AddHowDidYouFindUsToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407180417426_AddCollectAndCallToCustomer.resx">
+      <DependentUpon>201407180417426_AddCollectAndCallToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407200639053_AddImportedIdCustomerJob.resx">
+      <DependentUpon>201407200639053_AddImportedIdCustomerJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407200700411_ImportIdNullableJobCustomer.resx">
+      <DependentUpon>201407200700411_ImportIdNullableJobCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407222219210_JobLocation.resx">
+      <DependentUpon>201407222219210_JobLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407231719223_AddImportedStaffId.resx">
+      <DependentUpon>201407231719223_AddImportedStaffId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407231808111_StaffDisplayName50Characters.resx">
+      <DependentUpon>201407231808111_StaffDisplayName50Characters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407280318477_SalesRepStatusRequiredJob.resx">
+      <DependentUpon>201407280318477_SalesRepStatusRequiredJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407280346596_StaffRequiredLineItem.resx">
+      <DependentUpon>201407280346596_StaffRequiredLineItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407280349098_LineItemJobForeignKeysNotNullable.resx">
+      <DependentUpon>201407280349098_LineItemJobForeignKeysNotNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408070623493_ApplianceTypeRequiredOnly.resx">
+      <DependentUpon>201408070623493_ApplianceTypeRequiredOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408120436210_AddStaffUsername.resx">
+      <DependentUpon>201408120436210_AddStaffUsername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408120505243_StaffUsernameRequired.resx">
+      <DependentUpon>201408120505243_StaffUsernameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408130605471_AddCallTextOnWayAppointment.resx">
+      <DependentUpon>201408130605471_AddCallTextOnWayAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408192352191_AddNotePayment.resx">
+      <DependentUpon>201408192352191_AddNotePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408202354204_AddPaymentMethodObject.resx">
+      <DependentUpon>201408202354204_AddPaymentMethodObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408210024331_PaymentMethodDescription.resx">
+      <DependentUpon>201408210024331_PaymentMethodDescription.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Apple devices fullscreen -->
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+	<title>@ViewBag.Title - Repair Manager</title>
+    @Scripts.Render("~/bundles/modernizr")
+    
+
+    <!-- Bootstrap -->
+	@Styles.Render("~/Content/flat/maincss")
+
+    <!-- js -->
+    @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/mainjquery")
+    @Scripts.Render("~/bundles/signalr")
+	@RenderSection("scripts", required: false)
+   
+    
+    
+    @RenderSection("styles", required: false)
+
+    <!--[if lte IE 9]>
+		<script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
+	<![endif]-->
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="@Url.Content("~/Content/flat/img/favicon.ico")" />
+	<!-- Apple devices Homescreen icon -->
+	<link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/flat/img/apple-touch-icon-precomposed.png")" />
+
+</head>
+<body class="theme-lightgrey">
+	@*@Html.Partial("_NavigationTopPartial")*@
+    <div class="container-fluid" id="content">
+        @*@Html.Partial("_NavigationSidePartial")*@
+        <div id="main">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+         @*@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/mainjquery")
+        @Scripts.Render("~/bundles/signalr")
+		@RenderSection("scripts", required: false)*@
+</body>
+</html>

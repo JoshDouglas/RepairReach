@@ -1,0 +1,365 @@
+﻿@model RepairReach.Core.Model.Job
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>
+		    <i class="icon-wrench"></i>
+		    Job
+	    </h3>
+        <hr />
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.JobId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.JobNumber, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.JobNumber)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerId, "CustomerId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CustomerId", String.Empty)
+                @Html.ValidationMessageFor(model => model.CustomerId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobStatusId, "JobStatusId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JobStatusId", String.Empty)
+                @Html.ValidationMessageFor(model => model.JobStatusId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobCategoryId, "JobCategoryId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JobCategoryId", String.Empty)
+                @Html.ValidationMessageFor(model => model.JobCategoryId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address1)
+                @Html.ValidationMessageFor(model => model.Address1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address2)
+                @Html.ValidationMessageFor(model => model.Address2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State)
+                @Html.ValidationMessageFor(model => model.State)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zipcode)
+                @Html.ValidationMessageFor(model => model.Zipcode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactFirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactFirstName)
+                @Html.ValidationMessageFor(model => model.ContactFirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactLastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactLastName)
+                @Html.ValidationMessageFor(model => model.ContactLastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactPhone1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactPhone1, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.ContactPhone1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactPhone2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactPhone2, new { @class = "input-medium mask_phone" })
+                @Html.ValidationMessageFor(model => model.ContactPhone2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CollectPaymentOnSite, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CollectPaymentOnSite)
+                @Html.ValidationMessageFor(model => model.CollectPaymentOnSite)
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobScheduled, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.JobScheduled, new { @class = "input-medium datepick" })
+                @Html.ValidationMessageFor(model => model.JobScheduled)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobClosed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.JobClosed, new { @class = "input-medium datepick" })
+                @Html.ValidationMessageFor(model => model.JobClosed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffId, "StaffId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StaffId", String.Empty)
+                @Html.ValidationMessageFor(model => model.StaffId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+    <div>
+        @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Delete", "Delete", new {id = Model.CustomerId})
+    </div>
+
+@*line items*@
+<div class="box-title">
+	<h3>
+		<i class="icon-reorder"></i>
+		Line Items
+	</h3>
+</div>
+
+@Html.ActionLink("Create Line Item", "Create", "LineItem", new { jobId = Model.JobId}, null)
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().LineItemNumber)
+        </th>
+        <th>
+            Appliance
+        </th>
+        <th>
+            Tech
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().PartName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().PartAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().PartCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().PartNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().ServiceAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineItems.First().ServiceCost)
+        </th>
+        <th>
+            Tax %
+        </th>
+        <th>
+            Total
+        </th>
+    </tr>
+
+@foreach (var item in Model.LineItems) {
+    <tr>
+        <td>
+            <a href="@Url.Action("Edit", "LineItem", new { id=item.LineItemId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineItemNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appliance.DisplayName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Technician.DisplayName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxRate.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+    </tr>
+}
+</table>
+
+@*job notes*@
+<div class="box-title">
+	<h3>
+		<i class="icon-edit"></i>
+		Notes
+	</h3>
+</div>
+
+@Html.ActionLink("Create Note", "Create", "JobNote", new { jobId = Model.JobId}, null)
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            Category
+        </th>
+        <th>
+            Note
+        </th>
+        <th>
+            Created By
+        </th>
+        <th>
+            Created On
+        </th>
+    </tr>
+
+    @foreach (var item in Model.JobNotes) {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "JobNote", new { id=item.JobNoteId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoteCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+        </tr>
+    }
+</table>
+
+@*payments*@
+<div class="box-title">
+    <h3>
+        <i class="icon-credit-card"></i>
+        Payments
+    </h3>
+</div>
+
+@Html.ActionLink("Create Payment", "Create", "Payment", new { jobId = Model.JobId }, null)
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            Method
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Entered By
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Payments)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Payment", new { id=item.PaymentId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnteredBy)
+            </td>
+        </tr>
+    }
+</table>
+
+

@@ -1,0 +1,34 @@
+﻿@model RepairReach.WebApplication.ViewModels.JobIndexViewModel
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.JobNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.CustomerDisplayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.CategoryDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.StatusDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.SalesRepDisplayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.FullAddress)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.FullContactName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ContactPhone1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.TotalAmount)
+    </td>
+</tr>

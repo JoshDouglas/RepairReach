@@ -1,0 +1,54 @@
+﻿@model RepairReach.WebApplication.ViewModels.CompanyIndexViewModel
+
+@{
+    ViewBag.Title = "Company";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-truck"></i>
+                    Company
+                </h3>
+            </div>
+            <div class="box-content">
+                @if (Model == null)
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+                }
+                else
+                {
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.State)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Zipcode)
+                            </th>
+                        </tr>
+
+                        @Html.DisplayFor(model => Model)
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

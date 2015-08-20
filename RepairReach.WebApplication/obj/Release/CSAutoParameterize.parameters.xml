@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="RepairReachDEV-Web.config Connection String" description="RepairReachDEV Connection String used in web.config by the application to access the database." defaultValue="Data Source=(localdb)\v11.0;Initial Catalog=RepairReachDEV;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Development\\GitHub\\RepairReach-Web\\RepairReach\.WebApplication\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RepairReachDEV']/@connectionString" />
+  </parameter>
+</parameters>

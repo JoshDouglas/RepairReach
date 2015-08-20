@@ -1,0 +1,44 @@
+﻿@model RepairReach.WebApplication.ViewModels.ApplianceEditViewModel
+
+@Html.HiddenFor(model => model.ApplianceId)
+@Html.HiddenFor(model => model.JobId)
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Make, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Make)
+        @Html.ValidationMessageFor(model => model.Make)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("Type")
+        @Html.ValidationMessageFor(model => model.Type)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ModelNumber, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ModelNumber)
+        @Html.ValidationMessageFor(model => model.ModelNumber)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.SerialNumber, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.SerialNumber)
+        @Html.ValidationMessageFor(model => model.SerialNumber)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ProblemDescription, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(model => model.ProblemDescription)
+        @Html.ValidationMessageFor(model => model.ProblemDescription)
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@model RepairReach.WebApplication.ViewModels.CustomerCreateViewModel
+    
+<div class="form-group">
+    @Html.LabelFor(model => model.Designation, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("Designation")
+        @Html.ValidationMessageFor(model => model.Designation)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.HowDidYouFindUsId, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("HowDidYouFindUsId", String.Empty)
+        @Html.ValidationMessageFor(model => model.HowDidYouFindUsId)
+    </div>
+</div>
+
+<div class="form-group" id="CompanyNameFormGroup">
+    @Html.LabelFor(model => model.CompanyName, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CompanyName)
+        @Html.ValidationMessageFor(model => model.CompanyName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2", id="FirstNameLabel" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2", id="LastNameLabel" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Phone1, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Phone1, new { @class = "input-medium mask_phone" })
+        @Html.ValidationMessageFor(model => model.Phone1)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Phone2, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Phone2, new { @class = "input-medium mask_phone" })
+        @Html.ValidationMessageFor(model => model.Phone2)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+</div>
+
+@*<div class="form-group">
+    @Html.LabelFor(model => model.Fax, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Fax)
+        @Html.ValidationMessageFor(model => model.Fax)
+    </div>
+</div>*@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Address1)
+        @Html.ValidationMessageFor(model => model.Address1)
+    </div>
+</div>
+
+@*<div class="form-group">
+    @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Address2)
+        @Html.ValidationMessageFor(model => model.Address2)
+    </div>
+</div>*@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.City)
+        @Html.ValidationMessageFor(model => model.City)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.State)
+        @Html.ValidationMessageFor(model => model.State)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Zipcode)
+        @Html.ValidationMessageFor(model => model.Zipcode)
+    </div>
+</div>
+
+<br />
+
+<div class="form-group">
+    @Html.CheckBoxFor(model => model.PrefersTextMessaging)
+    Prefers Text Messaging
+    @Html.ValidationMessageFor(model => model.PrefersTextMessaging)
+</div>
+
+<div class="form-group">
+    @Html.CheckBoxFor(model => model.CollectPaymentOnSite)
+    Collect Payment On Site
+    @Html.ValidationMessageFor(model => model.CollectPaymentOnSite)
+</div>
+
+<div class="form-group">
+    @Html.CheckBoxFor(model => model.CallOnWay)
+    Call on Way
+    @Html.ValidationMessageFor(model => model.CallOnWay)
+</div>

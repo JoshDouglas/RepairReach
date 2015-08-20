@@ -1,0 +1,89 @@
+﻿@model RepairReach.WebApplication.ViewModels.TeamCreateViewModel
+
+<div class="form-group">
+    @Html.LabelFor(model => model.DisplayName, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DisplayName)
+        @Html.ValidationMessageFor(model => model.DisplayName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.UserTitle, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("UserTitle")
+        @Html.ValidationMessageFor(model => model.UserTitle)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Phone)
+        @Html.ValidationMessageFor(model => model.Phone)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+</div>
+
+@if (User.Identity.Name == "DemoAdmin")
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.HourlyRate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HourlyRate)
+            @Html.ValidationMessageFor(model => model.HourlyRate)
+        </div>
+    </div>
+
+    <br />
+    
+    <fieldset>
+        <legend>Login Info</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+
+    </fieldset>
+}
+else
+{
+    @Html.HiddenFor(model => model.Password)
+    @Html.HiddenFor(model => model.Username)
+    @Html.HiddenFor(model => model.HourlyRate)
+}

@@ -1,0 +1,113 @@
+﻿@model RepairReach.WebApplication.ViewModels.TimeClockEntryCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#SetTimeOut').change(function () {
+            if ($('#SetTimeOut').is(':checked')) {
+                $('#TimeOutDiv').show();
+            } else {
+                $('#TimeOutDiv').hide();
+            }
+        });
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-time"></i>
+                    Create Time Clock Entry
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StaffId, "StaffId", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("StaffId", String.Empty)
+                                @Html.ValidationMessageFor(model => model.StaffId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateWorked, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.DateWorked, new { @class = "input-medium datepick" })
+                                @Html.ValidationMessageFor(model => model.DateWorked)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TimeIn, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="bootstrap-timepicker">
+                                    @Html.TextBoxFor(model => model.TimeIn, new { @class = "input-small timepick" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TimeIn)
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SetTimeOut, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SetTimeOut)
+                                @Html.ValidationMessageFor(model => model.SetTimeOut)
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="form-group" id="TimeOutDiv">
+                            @Html.LabelFor(model => model.TimeOut, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="bootstrap-timepicker">
+                                    @Html.TextBoxFor(model => model.TimeOut, new { @class = "input-small timepick" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TimeOut)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DatePaid, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.DatePaid, new { @class = "input-medium datepick" })
+                                @Html.ValidationMessageFor(model => model.DatePaid)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

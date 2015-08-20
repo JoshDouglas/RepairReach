@@ -1,0 +1,91 @@
+﻿@model IEnumerable<RepairReach.WebApplication.ViewModels.CustomerIndexViewModel>
+
+@{
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Customers";
+    }
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#Designation").change(function (e) {
+            var designation = $(this).val();
+            var nameLetter = $('#NameLetters').val();
+            window.location = "/Customer/Index?designation=" + designation + "&nameLetter=" + nameLetter;
+        });
+
+        $("#NameLetters").change(function (e) {
+            var designation = $('#Designation').val();
+            var nameLetter = $(this).val();
+            window.location = "/Customer/Index?designation=" + designation + "&nameLetter=" + nameLetter;
+        });
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-user"></i>
+                    @ViewBag.NumberOfCustomers @ViewBag.Title 
+                    @if (@ViewBag.Title != "Customers")
+                    {
+                        <text>
+                            Customers
+                        </text>
+                    }
+                </h3>
+                <div class="actions">@Html.DropDownList("NameLetters", string.Empty) @Html.DropDownList("Designation", string.Empty)</div>
+            </div>
+            <div class="box-content">
+                <p>
+                    <a href="@Url.Action("Create")"><button class="btn"><i class="icon-plus"></i> New Customer</button></a>
+                </p>
+
+                @*table start*@
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Designation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Phone1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullAddress)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        @Html.DisplayFor(model => item)
+                    }
+
+                </table>
+                @*table end*@
+                @*pagination*@
+                <div class="pager">
+                    @Html.Pager((int)ViewBag.PageSize, (int)ViewBag.PageNumber, (int)ViewBag.NumberOfCustomers).Options(o => o
+                   .AddRouteValue("designation", ViewBag.SelectedDesignation)
+                   .AddRouteValue("nameLetter", ViewBag.SelectedNameLetter))
+                </div>
+                @*pagination end*@
+            </div>
+        </div>
+    </div>
+</div>
+
+

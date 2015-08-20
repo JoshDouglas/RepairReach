@@ -1,0 +1,124 @@
+﻿@model RepairReach.WebApplication.ViewModels.Reports.NonAuthorizedJobsViewModel
+
+@{
+    ViewBag.Title = "Non Authorized Jobs";
+}
+
+<h2>Non-Authorized Jobs</h2>
+
+<hr />
+
+@*Filter*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-vertical">
+        @Html.ValidationSummary(true)
+
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="control-group">
+                    @Html.LabelFor(model => model.BeginDate, new { @class = "control-label" })
+                    <div class="controls controls-row">
+                        @Html.TextBoxFor(model => model.BeginDate, new { @class = "input-medium datepick" })
+                        @Html.ValidationMessageFor(model => model.BeginDate)
+                    </div>
+                </div>
+            </div>
+
+            <div class="span2">
+                <div class="control-group">
+                    @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
+                    <div class="controls controls-row">
+                        @Html.TextBoxFor(model => model.EndDate, new { @class = "input-medium datepick" })
+                        @Html.ValidationMessageFor(model => model.EndDate)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="span2">
+                <div class="control-group">
+                    @Html.LabelFor(model => model.ShowAll, new { @class = "control-label" })
+                    <div class="controls controls-row">
+                        @Html.EditorFor(model => model.ShowAll, new { @class = "input-medium datepick" })
+                        @Html.ValidationMessageFor(model => model.ShowAll)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Process" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@*Report*@
+@if (Model.Jobs != null)
+{
+    <table class="table">
+    <tr>
+        <th></th>
+        <th>
+            Job Number
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Sales Rep
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Created
+        </th>
+        <th>
+            Total
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Jobs)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit", "Job", new { id=item.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesRepresentative.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobStatus.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCategory.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCreatedDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrandTotal)
+            </td>
+        </tr>
+    }
+    </table>
+}

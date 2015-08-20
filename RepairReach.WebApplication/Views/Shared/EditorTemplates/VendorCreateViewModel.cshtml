@@ -1,0 +1,135 @@
+﻿@model RepairReach.WebApplication.ViewModels.VendorCreateViewModel
+
+<h5>Company Info</h5>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CompanyName, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CompanyName)
+        @Html.ValidationMessageFor(model => model.CompanyName)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CompanyPhone, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.CompanyPhone, new { @class = "input-medium mask_phone" })
+        @Html.ValidationMessageFor(model => model.CompanyPhone)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CompanyEmail, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CompanyEmail)
+        @Html.ValidationMessageFor(model => model.CompanyEmail)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Address1)
+        @Html.ValidationMessageFor(model => model.Address1)
+    </div>
+</div>
+
+@*<div class="form-group">
+    @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Address2)
+        @Html.ValidationMessageFor(model => model.Address2)
+    </div>
+</div>*@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.City)
+        @Html.ValidationMessageFor(model => model.City)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.State)
+        @Html.ValidationMessageFor(model => model.State)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ZipCode, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ZipCode)
+        @Html.ValidationMessageFor(model => model.ZipCode)
+    </div>
+</div>
+
+<h5>Contacts</h5>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact1Name, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact1Name)
+        @Html.ValidationMessageFor(model => model.Contact1Name)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact1Title, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact1Title)
+        @Html.ValidationMessageFor(model => model.Contact1Title)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact1Phone, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Contact1Phone, new { @class = "input-medium mask_phone" })
+        @Html.ValidationMessageFor(model => model.Contact1Phone)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact1Email, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact1Email)
+        @Html.ValidationMessageFor(model => model.Contact1Email)
+    </div>
+</div>
+
+<br />
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact2Name, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact2Name)
+        @Html.ValidationMessageFor(model => model.Contact2Name)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact2Title, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact2Title)
+        @Html.ValidationMessageFor(model => model.Contact2Title)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact2Phone, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Contact2Phone, new { @class = "input-medium mask_phone" })
+        @Html.ValidationMessageFor(model => model.Contact2Phone)
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Contact2Email, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Contact2Email)
+        @Html.ValidationMessageFor(model => model.Contact2Email)
+    </div>
+</div>

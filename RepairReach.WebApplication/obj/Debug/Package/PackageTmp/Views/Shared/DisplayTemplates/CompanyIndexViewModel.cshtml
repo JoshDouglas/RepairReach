@@ -1,0 +1,25 @@
+﻿@model RepairReach.WebApplication.ViewModels.CompanyIndexViewModel
+    
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "Company", new { id=Model.CompanyId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Address1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Address2)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.City)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.State)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Zipcode)
+    </td>
+</tr>

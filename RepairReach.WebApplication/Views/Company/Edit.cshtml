@@ -1,0 +1,46 @@
+﻿@model RepairReach.WebApplication.ViewModels.CompanyEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-truck"></i>
+                    Edit Company
+                </h3>
+            </div>
+            <div class="box-content">
+                @using (Html.BeginForm("Edit", "Company", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    
+                    <div class="form-horizontal">
+                        
+                        @Html.EditorFor(model => Model)
+                        
+                        <br />
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

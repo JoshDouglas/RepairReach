@@ -1,0 +1,110 @@
+﻿@model IEnumerable<RepairReach.WebApplication.ViewModels.ManagementActivityLogViewModel>
+
+@{
+    ViewBag.Title = "Acivity Log";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#EndTime").change(function (e) {
+            if ($(this).val().length > 0 && $('#StartTime').val().length > 0) {
+                FilterLog();
+            }
+
+            if ($(this).val().length == 0 && $('#StartTime').val().length == 0) {
+                FilterLog();
+            }
+        });
+
+        $("#StartTime").change(function (e) {
+            if ($(this).val().length > 0 && $('#EndTime').val().length > 0) {
+                FilterLog();
+            }
+
+            if ($(this).val().length == 0 && $('#EndTime').val().length == 0) {
+                FilterLog();
+            }
+        });
+
+        $("#CreatedBy").change(function (e) {
+            if ($(this).val().length > 0) {
+                FilterLog();
+            }
+
+            if ($(this).val().length == 0) {
+                FilterLog();
+            }
+        });
+
+        $("#CreatedBy").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Team/GetTermJsonAsync",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.DisplayName, value: item.DisplayName };
+                        }));
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $(this).val(ui.item.label);
+                FilterLog();
+            }
+        });
+
+        function FilterLog() {
+            var startTime = $('#StartTime').val();
+            var endTime = $('#EndTime').val();
+            var user = $('#CreatedBy').val();
+            window.location = "/Management/ActivityLog?startTime=" + startTime + "&endTime=" + endTime + "&createdBy=" + user;
+        }
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-bullhorn"></i>
+                    Activity Log
+                </h3>
+                <div style="color: white;" class="actions"> 
+                    From @Html.TextBox("StartTime", string.Empty, new { @class = "input-small datepick" }) 
+                    To @Html.TextBox("EndTime", string.Empty, new { @class = "input-small datepick" })
+                    User @Html.TextBox("CreatedBy", string.Empty, new { placeholder = "Search for a user"})
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.JobNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CausedBy)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        @Html.DisplayFor(model => item)
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

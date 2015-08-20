@@ -1,0 +1,682 @@
+﻿@model RepairReach.Core.Model.Job
+
+@{
+    ViewBag.Title = "Job - " + Model.Customer.DisplayName;
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#JobStatusId").change(function (e) {
+            var status = $(this).find(':selected').text();
+            var balanceDue = $('#BalanceDue').val();
+            if (status == "Closed" && balanceDue > 0) {
+                //disable save button
+                $('input[type="submit"]').prop('disabled', true);
+
+                //show error
+                $("#closed-balance-due-error").show();
+            } else {
+                //enable button
+                $('input[type="submit"]').prop('disabled', false);
+
+                //hide error
+                $("#closed-balance-due-error").hide();
+            }
+        });
+    });
+</script>
+
+@*Tab box*@
+<div class="box box-bordered box-color">
+    <div class="box-title">
+        <h3><i class="icon-wrench"></i> Job - @Model.Customer.DisplayName</h3>
+    </div>
+    <div class="box-content nopadding">
+        <ul class="tabs tabs-inline tabs-top">
+            <li class="active">
+                <a href="#firstTab" data-toggle="tab"><i class="icon-wrench"></i> Job Info</a>
+            </li>
+            <li class="">
+                <a href="#secondTab" data-toggle="tab"><i class="icon-reorder"></i> Line Items</a>
+            </li>
+            <li class="">
+                <a href="#thirdTab" data-toggle="tab"><i class="icon-credit-card"></i> Payments</a>
+            </li>
+            <li class="">
+                <a href="#fourthTab" data-toggle="tab"><i class="icon-bar-chart"></i> Forms</a>
+            </li>
+        </ul>
+        <div class="tab-content padding tab-content-inline tab-content-bottom">
+            <div class="tab-pane active" id="firstTab">
+                <div class="row-fluid">
+                    @*Appliances Begin*@
+                    <div class="span12">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="glyphicon-nails"></i>
+                                    Appliances
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "Appliance", new {jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Appliance</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            Type
+                                        </th>
+                                        <th>
+                                            Make
+                                        </th>
+                                        <th>
+                                            Model
+                                        </th>
+                                        <th>
+                                            Serial
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.Appliances)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("Edit", "Appliance", new { id=item.ApplianceId, jobId = Model.JobId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Make)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ModelNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SerialNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProblemDescription)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Appliances End*@
+                </div>
+                
+                <div class="row-fluid">
+                    @*Appointments Begin*@
+                    <div class="span6">
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-calendar"></i>
+                                    Appointments
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "Appointment", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Appointment</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            Start
+                                        </th>
+                                        <th>
+                                            End
+                                        </th>
+                                        <th>
+                                            Technician
+                                        </th>
+                                        <th>
+                                            Note
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.Appointments)
+                                    {
+                                        var startTime = TimeZoneInfo.ConvertTimeFromUtc(item.StartTime, ViewBag.TimeZoneInfo);
+                                        var endTime = TimeZoneInfo.ConvertTimeFromUtc(item.EndTime, ViewBag.TimeZoneInfo);
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("Edit", "Appointment", new { id=item.AppointmentId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                                            </td>
+                                            <td>
+                                                @startTime
+                                            </td>
+                                            <td>
+                                                @endTime
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Technician.DisplayName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Note)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Appointments End*@
+                    <div class="span6">
+                        @*Notes Begin*@
+                        <div class="box box-color box-bordered">
+                            <div class="box-title">
+                                <h3>
+                                    <i class="icon-edit"></i>
+                                    Notes
+                                </h3>
+                            </div>
+                            <div class="box-content nopadding">
+                                <br />
+                                <p style="margin-left: 10px;">
+                                    <a href="@Url.Action("Create", "JobNote", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Note</button></a>
+                                </p>
+
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            Note
+                                        </th>
+                                        <th>
+                                            Created By
+                                        </th>
+                                        <th>
+                                            Created On
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.JobNotes)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("Edit", "JobNote", new { id=item.JobNoteId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Note)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                        @*Notes End*@
+                    </div>
+                </div>
+
+                @*Job Info Begin*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.JobId)
+                            @Html.HiddenFor(model => model.JobCreated)
+                            @Html.HiddenFor(model => model.JobAuthorized)
+                            @Html.HiddenFor(model => model.JobClosed)
+                            @Html.HiddenFor(model => model.LastViewedTime)
+                            @Html.HiddenFor(model => model.LastViewedBy)
+                            
+                            <br />
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <h5><i class="icon-info-sign"></i> Tracking Info</h5>
+                                    <hr />
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.JobNumber, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.JobNumber, new { @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.JobNumber)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerId, "CustomerId", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("CustomerId", String.Empty)
+                                            @Html.ValidationMessageFor(model => model.CustomerId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StaffId, "StaffId", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("StaffId", String.Empty)
+                                            @Html.ValidationMessageFor(model => model.StaffId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.JobStatusId, "JobStatusId", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("JobStatusId", String.Empty)
+                                            @Html.ValidationMessageFor(model => model.JobStatusId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.JobCategoryId, "JobCategoryId", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("JobCategoryId", String.Empty)
+                                            @Html.ValidationMessageFor(model => model.JobCategoryId)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            @Html.LabelFor(model => model.IsAuthorized, new { @class = "control-label col-md-2" })
+
+                                            @Html.EditorFor(model => model.IsAuthorized)
+                                            @Html.ValidationMessageFor(model => model.IsAuthorized)
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                </div>
+                                
+                                <div class="span6">
+                                    <h5><i class="icon-user"></i> Contact Info</h5>
+                                    <hr />
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Address1)
+                                            @Html.ValidationMessageFor(model => model.Address1)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Address2, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Address2)
+                                            @Html.ValidationMessageFor(model => model.Address2)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.City)
+                                            @Html.ValidationMessageFor(model => model.City)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.State)
+                                            @Html.ValidationMessageFor(model => model.State)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Zipcode)
+                                            @Html.ValidationMessageFor(model => model.Zipcode)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactFirstName, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ContactFirstName)
+                                            @Html.ValidationMessageFor(model => model.ContactFirstName)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactLastName, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ContactLastName)
+                                            @Html.ValidationMessageFor(model => model.ContactLastName)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactPhone1, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.ContactPhone1, new { @class = "input-medium mask_phone" })
+                                            @Html.ValidationMessageFor(model => model.ContactPhone1)
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactPhone2, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(model => model.ContactPhone2, new { @class = "input-medium mask_phone" })
+                                            @Html.ValidationMessageFor(model => model.ContactPhone2)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5><i class="icon-money"></i> Billing Info</h5>
+                            <hr />
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.GrandTotal, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.GrandTotal, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BalanceDue, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.BalanceDue, new { @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <br />
+                            
+                            <div id="closed-balance-due-error" style="display: none;">
+                                <br />
+                                <div class="alert alert-error">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    Cannot close a job that has a balance due.
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*Job Info End*@
+                
+            </div>
+            <div class="tab-pane" id="secondTab">
+                @*Line Item Begin*@
+                <p>
+                    <a href="@Url.Action("Create", "LineItem", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Line Item</button></a>
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            Line Number
+                        </th>
+                        <th>
+                            Tech
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Part Description
+                        </th>
+                        <th>
+                            Part Amount
+                        </th>
+                        <th>
+                            Part Cost
+                        </th>
+                        <th>Service Description</th>
+                        <th>
+                            Service Amount
+                        </th>
+                        <th>
+                            Service Cost
+                        </th>
+                        <th>
+                            Tax %
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                    
+                    @{decimal totalAmount = 0;}
+
+                    @foreach (var item in Model.LineItems)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Edit", "LineItem", new { id=item.LineItemId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LineItemNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Technician.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceCost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TaxRate.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalAmount)
+                                @{ totalAmount += item.TotalAmount;}
+                            </td>
+                        </tr>
+                    }
+                    @*line item total row*@
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>
+                            <b>@(Math.Round(totalAmount, 2, MidpointRounding.ToEven))</b>
+                        </td>
+                    </tr>
+                </table>
+                @*Line Item End*@
+            </div>
+            <div class="tab-pane" id="thirdTab">
+                @*Payments Begin*@
+                <p>
+                    <a href="@Url.Action("Create", "Payment", new { jobId = Model.JobId})"><button class="btn"><i class="icon-plus"></i> New Payment</button></a>
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th>
+                            Method
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Entered By
+                        </th>
+                    </tr>
+                    
+                    @{ decimal totalPaymentsAmount = 0;}
+
+                    @foreach (var item in Model.Payments)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Edit", "Payment", new { id=item.PaymentId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentMethod)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentAmount)
+                                @{ totalPaymentsAmount += item.PaymentAmount;}
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DatePaid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EnteredBy)
+                            </td>
+                        </tr>
+                    }
+                    @*payment totals row*@
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td><b>@(totalPaymentsAmount)</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                @*Payments End*@
+            </div>
+            <div class="tab-pane" id="fourthTab">
+                @*Forms Begin*@
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            Form
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Estimate", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EstimatePdf", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Estimate 
+                        </td>
+                        <td>
+                            Estimate report for pre-authorized repair.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("RepairOrder", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("RepairOrderPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Repair Order
+                        </td>
+                        <td>
+                            Current repair order.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Invoice", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("InvoicePdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Invoice
+                        </td>
+                        <td>
+                            Customer invoice.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("PaymentReceipt", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("PaymentReceiptPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Payment Receipt
+                        </td>
+                        <td>
+                            Receipt for payments.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("RepairAuthorization", "Job", new { id=Model.JobId })"><button class="btn"><i class="icon-search"></i> View</button></a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("RepairAuthorizationPdf", "Job", new { id = Model.JobId })"><button class="btn"><i class="icon-file"></i> Pdf</button></a>
+                        </td>
+                        <td>
+                            Repair Authorization
+                        </td>
+                        <td>
+                            Customer authorization for repairs.
+                        </td>
+                    </tr>
+
+                </table>
+                @*Forms End*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Delete", "Delete", new { id = Model.JobId })
+</div>

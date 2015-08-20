@@ -1,0 +1,51 @@
+﻿@model RepairReach.Core.Model.LineItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutNew.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LineItem</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.JobNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.JobNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxRate.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxRate.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Technician.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Technician.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineItemNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineItemNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LineItemId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

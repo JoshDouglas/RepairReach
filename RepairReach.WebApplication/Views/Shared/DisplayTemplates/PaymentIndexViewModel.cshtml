@@ -1,0 +1,22 @@
+﻿@model RepairReach.WebApplication.ViewModels.PaymentIndexViewModel
+
+<tr>
+    <td>
+        <a href="@Url.Action("Edit", "Payment", new { id=Model.PaymentId })"><button class="btn"><i class="icon-search"></i> Open</button></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.PaymentMethod)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.PaymentAmount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Note)
+    </td>
+    <td>
+        @String.Format("{0:d}", Model.DatePaid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.EnteredBy)
+    </td>
+</tr>

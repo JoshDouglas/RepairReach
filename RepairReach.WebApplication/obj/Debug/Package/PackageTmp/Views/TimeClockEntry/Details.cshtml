@@ -1,0 +1,58 @@
+﻿@model RepairReach.Core.Model.TimeClockEntry
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TimeClockEntry</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourlyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourlyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeIn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeOut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeOut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePaid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TimeClockEntryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

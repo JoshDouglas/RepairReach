@@ -1,0 +1,337 @@
+﻿@using RepairReach.Core.Model
+@model RepairReach.WebApplication.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<script type='text/javascript'>
+    function ReloadPage() {
+        location.reload();
+    };
+
+    function setupMonthlyRevenueChart() {
+        var monthlyRevenueData = {
+            labels: [
+                @for (int i = 0; i < @Model.MonthlyRevenueChartItems.Count(); i++)
+                {
+                    <text>
+                        "@(Model.MonthlyRevenueChartItems[i].Label)"
+                    </text>
+                    if (i != Model.MonthlyRevenueChartItems.Count() - 1){ <text>,</text> }
+                }
+            ],
+            datasets: [
+                {
+                    label: "Revenue",
+                    fillColor: "rgba(86,175,69,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(86,175,69,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [
+                        @for (int i = 0; i < @Model.MonthlyRevenueChartItems.Count(); i++)
+                        {
+                            <text>
+                                @(Model.MonthlyRevenueChartItems[i].Revenue)
+                            </text>
+                            if (i != Model.MonthlyRevenueChartItems.Count() - 1){ <text>,</text> }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        var monthlyRevenueChart = document.getElementById('monthlyRevenueChart').getContext('2d');
+        new Chart(monthlyRevenueChart).Bar(monthlyRevenueData, { responsive: true });
+    }
+
+    function setupWeeklyRevenueChart() {
+        var weeklyRevenueData = {
+            labels: [
+                @for (int i = 0; i < @Model.DailyRevenueChartItems.Count(); i++)
+                {
+                    <text>
+                        "@(Model.DailyRevenueChartItems[i].Label)"
+                    </text>
+                    if (i != Model.DailyRevenueChartItems.Count() - 1){ <text>,</text> }
+                }
+            ],
+            datasets: [
+                {
+                    label: "Revenue",
+                    fillColor: "rgba(86,175,69,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(86,175,69,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [
+                        @for (int i = 0; i < @Model.DailyRevenueChartItems.Count(); i++)
+                        {
+                            <text>
+                                @(Model.DailyRevenueChartItems[i].Revenue)
+                            </text>
+                            if (i != Model.DailyRevenueChartItems.Count() - 1){ <text>,</text> }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        var weeklyRevenueChart = document.getElementById('weeklyRevenueChart').getContext('2d');
+        new Chart(weeklyRevenueChart).Bar(weeklyRevenueData, { responsive: true });
+    }
+
+    $(document).ready(function () {
+        setTimeout("ReloadPage()", 180000);
+
+        setupMonthlyRevenueChart();
+        setupWeeklyRevenueChart();
+    });
+</script>
+
+<style>
+    .progress {
+    width: 100%;
+    height: 20px;
+    border: 2px black solid;
+    background-color: Silver;
+    margin-bottom: 5px;
+    }
+    .progress span {
+    margin-left: 10px; line-height: 20px; font-size: 10pt;
+    }
+</style>
+
+<h2>Admin Dashboard</h2>
+<h6>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, ViewBag.TimeZoneInfo).ToLongDateString()</h6>
+
+<div class="row-fluid">
+    @*Jobs by Description Widget*@
+    <div class="span6">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-wrench"></i>
+                    @Model.TotalJobCount Open Jobs
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                @foreach (var status in @Model.Statuses)
+                {
+                    if (status.JobCount != 0)
+                    {
+                        @*don't show text inside the progress bar because it isn't long enough and will get clipped*@
+                        if (status.JobPercentage <= 35)
+                        {
+                            <a href="@Url.Action("Index", "Job", new {status = status.Description })">
+                                <div class="progress">
+                                    <span>@status.Description</span>
+                                    <div class="bar" style="width:@status.JobPercentage%; text-align: left;"><span>@status.JobCount</span></div>
+                                </div>
+                            </a>
+                        }
+                        @*text inside the progress bar - otherwise it will get clipped off outside of it*@
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Job", new {status = status.Description })">
+                                <div class="progress">
+                                    <div class="bar" style="width:@status.JobPercentage%; text-align: left;"><span>@status.JobCount @status.Description</span></div>
+                                </div>
+                            </a>
+                        }
+                    }
+                    @*text before progress bar because no jobs (i.e. nothing to show inside progress bar)*@
+                    else
+                    {
+                        <a href="@Url.Action("Index", "Job", new {status = status.Description })">
+                            <div class="progress">
+                                <span>@status.JobCount @status.Description</span>
+                                <div class="bar" style="width:@status.JobPercentage%; text-align: left;"><span></span></div>
+                            </div>
+                        </a>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+    @*job status*@
+    @*recent activity*@
+    <div class="span6">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-bullhorn"></i>
+                    Recent Activity
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <ul>
+                    @foreach (var item in Model.RecentActivityEvents)
+                    {
+                        var activityDateString = TimeZoneInfo.ConvertTimeFromUtc(item.EventTime, ViewBag.TimeZoneInfo).ToShortTimeString();
+                        if (TimeZoneInfo.ConvertTimeFromUtc(item.EventTime, ViewBag.TimeZoneInfo).Date != TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, ViewBag.TimeZoneInfo).Date)
+                        {
+                            activityDateString = TimeZoneInfo.ConvertTimeFromUtc(item.EventTime, ViewBag.TimeZoneInfo).ToShortDateString();
+                        }
+                        <li>@item.Description on Job @Html.ActionLink("#" + item.Job.JobNumber, "Edit", "Job", new { id = item.JobId }, null) at @activityDateString by @item.CausedBy</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    @*recent activity*@
+</div>
+
+<div class="row-fluid">
+    @*today appts*@
+    <div class="span6">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-calendar"></i>
+                    Today
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <h5>@Model.AppointmentsToday.Count() Appointments</h5>
+                <ul>
+                    @foreach (var item in @Model.AppointmentsToday)
+                    {
+                        var startTime = TimeZoneInfo.ConvertTimeFromUtc(item.StartTime, ViewBag.TimeZoneInfo);
+                        <li>@item.Technician.DisplayName scheduled for Job @Html.ActionLink("#" + item.Job.JobNumber, "Edit", "Job", new { id = item.JobId }, null) at @startTime.ToShortTimeString()</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    @*today appts*@
+    
+    @*alerts*@
+    <div class="span6">
+        <div class="box box-color lightred box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-exclamation-sign"></i>
+                    Alerts
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                @*past due appointments*@
+                @if (Model.AppointmentsPastDue.Any())
+                {
+                    <h5>@Model.AppointmentsPastDue.Count() Appointments</h5>
+                    <ul>
+                        @foreach (var item in @Model.AppointmentsPastDue)
+                        {
+                            var startTime = TimeZoneInfo.ConvertTimeFromUtc(item.StartTime, ViewBag.TimeZoneInfo);
+                            <li>Job @Html.ActionLink("#" + item.Job.JobNumber, "Edit", "Job", new { id = item.JobId }, null) on @startTime.ToShortDateString() at @startTime.ToShortTimeString()</li>
+                        }
+                    </ul>
+                }
+                
+                @*rescheduled & needs approval*@
+                @if (Model.RescheduleNeedsApprovalJobAlerts.Any())
+                {
+                    <h5>@Model.RescheduleNeedsApprovalJobAlerts.Count() Reschedule & Needs Approval</h5>
+                    <ul>
+                        @foreach (var item in @Model.RescheduleNeedsApprovalJobAlerts)
+                        {
+                            <li>Job @Html.ActionLink("#" + item.JobNumber, "Edit", "Job", new { id = item.JobId }, null) not viewed in 24 hours</li>
+                        }
+                    </ul>
+                }
+                
+                @*awaiting payment*@
+                @if (Model.AwaitingPaymentJobAlerts.Any())
+                {
+                    <h5>@Model.AwaitingPaymentJobAlerts.Count() Awaiting Payment</h5>
+                    <ul>
+                        @foreach (var item in @Model.AwaitingPaymentJobAlerts)
+                        {
+                            <li>Job @Html.ActionLink("#" + item.JobNumber, "Edit", "Job", new { id = item.JobId }, null) not viewed in 2 weeks</li>
+                        }
+                    </ul>
+                }
+                
+                @*on hold*@
+                @if (Model.OnHoldJobAlerts.Any())
+                {
+                    <h5>@Model.OnHoldJobAlerts.Count() On Hold</h5>
+                    <ul>
+                        @foreach (var item in @Model.OnHoldJobAlerts)
+                        {
+                            <li>Job @Html.ActionLink("#" + item.JobNumber, "Edit", "Job", new { id = item.JobId }, null) not viewed in 48 hours</li>
+                        }
+                    </ul>
+                }
+                
+            </div>
+        </div>
+    </div>
+    @*alerts*@
+</div>
+
+<div class="row-fluid">
+    @*upcoming appts*@
+    <div class="span6">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-calendar"></i>
+                    Upcoming
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <h5>@Model.AppointmentsUpcoming.Count() Appointments on @TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow.AddDays(1), ViewBag.TimeZoneInfo).ToShortDateString()</h5>
+                <ul>
+                    @foreach (var item in @Model.AppointmentsUpcoming)
+                    {
+                        var startTime = TimeZoneInfo.ConvertTimeFromUtc(item.StartTime, ViewBag.TimeZoneInfo);
+                        <li>@item.Technician.DisplayName scheduled for Job @Html.ActionLink("#" + item.Job.JobNumber, "Edit", "Job", new { id = item.JobId }, null) at @startTime.ToShortTimeString()</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    @*upcoming appts*@
+    @*billing*@
+    <div class="span6">
+        <div class="box box-color satgreen box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-credit-card"></i>
+                    Billing
+                </h3>
+                <div class="actions">
+                    <a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div>
+                    <canvas id="weeklyRevenueChart"></canvas>
+                </div>
+                <div>
+                    <canvas id="monthlyRevenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*billing*@
+</div>

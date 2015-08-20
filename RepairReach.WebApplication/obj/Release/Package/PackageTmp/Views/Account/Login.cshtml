@@ -1,0 +1,106 @@
+﻿@using System.Linq;
+@using RepairReach.Data;
+
+@model RepairReach.WebApplication.ViewModels.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+@*grab logo*@
+@{
+    var context = new RepairReachContext();
+    var logoUrl = string.Empty;
+    var singleOrDefault = context.Companies.SingleOrDefault();
+    if (singleOrDefault != null)
+    {
+        logoUrl = singleOrDefault.LogoPath;
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Apple devices fullscreen -->
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+	<title>Login - Repair Reach</title>
+
+	@Styles.Render("~/Content/flat/accountcss")
+    @Scripts.Render("~/bundles/accountjquery")
+
+	<!--[if lte IE 9]>
+		<script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
+	<![endif]-->
+	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="@Url.Content("~/Content/flat/img/favicon.ico")" />
+	<!-- Apple devices Homescreen icon -->
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/flat/img/apple-touch-icon-precomposed.png")" />
+    
+    @*where you change backround to make it consistent with theme*@
+    <style>
+        .login {
+            background: #2285E2;
+        }
+
+        .btn.btn-primary {
+            background: #2285E2;
+        }
+    </style>
+
+</head>
+<body class='login'>
+    <div class="wrapper">
+        @if (string.IsNullOrEmpty(logoUrl) == false)
+        {
+            <img style="display: block; margin: auto; background: white;" src="@Url.Content(logoUrl)" />
+        }
+        <div class="login-body">
+            <h2>SIGN IN</h2>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-validate"})) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="control-group">
+                    <div class="email controls">
+                        @Html.TextBoxFor(m => m.UserName,
+                            new Dictionary<string, object> { {"name", "uemail" }, {"placeholder", "Username"}, {"class", "input-block-level"}, {"data-rule-required", "true"}, {"data-rule-email", "true"} })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="pw controls">
+                        @Html.PasswordFor(m => m.Password,
+                            new Dictionary<string, object> { {"name", "upw" }, {"placeholder", "Password"}, {"class", "input-block-level"}, {"data-rule-required", "true"} })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </div>
+                <div class="submit">
+                    <div class="remember">
+                        @Html.CheckBoxFor(m => m.RememberMe,
+                            new Dictionary<string, object> { {"name", "remember" }, {"class", "icheck-me"}, {"data-skin", "square"}, {"data-color", "grey"}, {"id", "remember"} })
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <input type="submit" value="Sign me in" class='btn btn-primary'>
+                </div>
+            }
+            <div class="forget">
+                <a href="#"><span>Forgot password?</span></a>
+            </div>
+        </div>
+        <br />
+        <h1><a href="#"><img src="@Url.Content("~/Content/flat/img/logo-big.png")" alt="" class='retina-ready'></a></h1>
+    </div>
+	
+</body>
+</html>
